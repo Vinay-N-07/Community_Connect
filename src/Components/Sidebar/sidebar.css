@@ -1,0 +1,27 @@
+.sidebar {
+    background-color: rgba(0, 0, 0, 0.5) ;
+    width: 250px;
+    height: 100vh;
+    color: white;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .sidebar li:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .sidebar .active {
+    background-color: #b0bec5;
+  }

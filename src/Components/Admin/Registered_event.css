@@ -1,0 +1,93 @@
+/* styles.css */
+
+.register-dashboard-text{
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+    font-weight: lighter;
+    font-family: system-ui;
+    color: whitesmoke;
+}
+.reg {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px;
+
+}
+
+/* .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+} */
+
+.item {
+    flex: 0 0 32%;
+    /* Adjust to change the number of cards per row */
+    margin-bottom: 20px;
+}
+
+.reg-bod{
+
+    background-image: url(Reg_card.jpg);
+    background-size: 80rem 22rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    height: 20rem;
+    padding: 10px;
+    width: 30rem;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    font-weight: lighter;
+    font-size: xx-large;
+    color: #4f3b3b;
+}
+
+.text {
+    display: flex;
+    justify-content: center;
+    font-weight: lighter;
+    font-size: large;
+    color: #f5f6f9;
+}
+
+.body:hover {
+    transform: translateY(-5px);
+}
+
+.info-layer {
+    backdrop-filter: blur(2px);
+
+}
+.bt-align{
+    display: flex;
+    justify-content: center;
+}
+.result-content{
+    display: flex;
+    justify-content: center;
+    font-size: medium;
+    font-weight: lighter;
+    margin: 5px;
+}
+
+.pending{
+    display: flex;
+    justify-content: center;
+    font-weight: lighter;
+    font-size: large;
+    color: #ccca29;
+}
+.approved{
+    display: flex;
+    justify-content: center;
+    font-weight: lighter;
+    font-size: large;
+    color: #0ac34d;
+}

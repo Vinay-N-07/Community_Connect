@@ -1,0 +1,39 @@
+/* Admin.css */
+.admin-page {
+    background-image: url(Admin.jpg);
+    height: 100vh;
+    background-size: cover;
+    overflow-y: auto;
+}
+
+.admin-dashboard{
+    display: flex;
+    justify-content: center;
+    background: blueviolet;
+    font-family: math;
+    font-size: xx-large;
+    padding: 10px;
+    font-weight: lighter;
+    color: azure;
+}
+
+.handle-button{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+.btn{
+    font-size: x-large;
+    font-family: serif;
+    border-color: transparent;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+
+
+
+
+

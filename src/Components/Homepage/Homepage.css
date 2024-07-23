@@ -1,0 +1,46 @@
+.home{
+    height: 100vh; 
+    background-image: url(Homepage.jpg);
+    background-size: cover;
+    overflow-y: auto;
+}
+
+.Dashboard-header {
+    display: flex;
+    height: 3rem;
+    background-color: #3db03d;
+}   
+
+.Dashboard-text{
+    font-weight: lighter;
+    font-size: xx-large;
+    margin: auto;
+    color: white;
+    font-family: math;
+
+}
+
+.right-corner{
+    display: flex;
+    padding: 5px;
+    background: #4ed3d3;
+    margin: 5px;
+    padding: 0.2px;
+    border-radius: 5px;
+    border-color: transparent;
+}
+.app{
+    display: flex;    
+}
+.app-content{
+    flex: auto;
+
+}
+
+.icon{
+    padding: 8px;
+}
+.user{
+    padding: 4px;
+    font-size: larger;
+}

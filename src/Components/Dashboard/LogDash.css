@@ -1,0 +1,16 @@
+.Dashboard-header {
+    display: flex;
+    justify-content: center;
+    height: 10rem;
+       
+}
+.text-layer{
+    font-weight: lighter;
+    font-size: xxx-large;
+}
+.text-layer2{
+    font-weight: lighter;
+    font-size: x-large;
+    text-align: center;
+
+}

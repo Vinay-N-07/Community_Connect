@@ -1,0 +1,35 @@
+.main {
+  display: flex;
+  gap: 30px;
+  margin: 20px;
+}
+
+.layer1 {
+  background-image: url(Approve.jpg);
+  background-size: 30rem 10rem ;
+  width: 30rem;
+  height: 10rem;
+  border-radius: 5px;
+}
+
+.main-text {
+  display: flex;
+  justify-content: center;
+  font-weight: lighter;
+  margin: 20px;
+}
+
+.layout {
+  display: flex;
+  justify-content: center;
+}
+
+.bt {
+  font-size: medium;
+  font-family: monospace;
+  
+}
+.approval{
+  display: flex;
+  justify-content: center;
+}

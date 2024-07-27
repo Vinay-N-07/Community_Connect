@@ -91,3 +91,10 @@
     font-size: large;
     color: #0ac34d;
 }
+.downlad{
+    background: steelblue;
+}
+
+.hidden {
+    visibility: hidden;
+}

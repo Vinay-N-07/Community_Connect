@@ -12,6 +12,7 @@ const Upcoming = () => {
   const collname = 'CreateEvents';
   const [getdata, setGetdata] = useState([]);
   const [Result, setResult] = useState([]);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   useEffect(() => {
     fetch(`http://localhost:5000/getUsers/${collname}`)
@@ -38,6 +39,10 @@ const Upcoming = () => {
       })
   }
 
+  const handleCardClick = (index) => {
+    setSelectedCard(index);
+  };
+
 
 
   return (
@@ -45,7 +50,7 @@ const Upcoming = () => {
     <div>
       <div className='dashboard-text'>Register now for our upcoming events of community crusaders.</div>
       {getdata.map((item, index) => (
-        <Card key={index} className='main'>
+        <Card key={index} className='main' onClick={() => handleCardClick(index)}>
           <CardBody className='body'>
             <div>
               <CardTitle className='title'>{item.name}</CardTitle>
@@ -61,7 +66,9 @@ const Upcoming = () => {
                   Register Now
                 </button>
               </div>
-              {Result.length === 1 && <span className='result-content'>{Result[0].message}</span>}
+              {selectedCard === index && Result.length === 1 && (
+                  <span className='result-content'>{Result[0].message}</span>
+                )}
             </div>
           </CardBody>
         </Card>

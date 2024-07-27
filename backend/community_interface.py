@@ -32,7 +32,7 @@ def updatedata(coll_name, name):
 
 def grant_approval(coll_name, name):
     mycoll = db_conn(coll_name)
-    mycoll.update_one({'name': name}, {"$set": {'status': 'Approval'}})
+    mycoll.update_one({'name': name}, {"$set": {'status': 'Approved'}})
 
 
 @app.route('/addUser/<username>/<password>/<mail>/<address>/<phone>/<user_type>/<area_of_interest>', methods=['GET', 'POST'])

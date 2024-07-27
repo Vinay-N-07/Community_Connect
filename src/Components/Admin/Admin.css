@@ -8,13 +8,15 @@
 
 .admin-dashboard{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     background: blueviolet;
+}
+.dash-text{
+    font-size: x-large;
     font-family: math;
-    font-size: xx-large;
-    padding: 10px;
     font-weight: lighter;
-    color: azure;
+    margin: 11px;
+    color: floralwhite;
 }
 
 .handle-button{
@@ -31,6 +33,10 @@
 .btn:hover {
     transform: translateY(-3px);
 }
+
+.log{
+    margin: 14px;
+  }
 
 
 

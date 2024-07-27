@@ -6,18 +6,20 @@ import RegistedEvent from '../Admin/Registered_events';
 
 
 const Content = ({ selectedMenuItem }) => {
+  
   const renderContent = () => {
     switch (selectedMenuItem) {
       case 'About Us':
-        return <About/>;
+        return <About />;
       case 'Profile':
-        return <Profile/>;  
+        return <Profile />;
       case 'Registered Events':
         return <Registered />;
       case 'Forthcoming Events':
         return <UpcomingEvents />;
       case 'Gallery':
         return <Gallery />;
+      
       default:
         return <About />;
     }
@@ -30,15 +32,15 @@ const Content = ({ selectedMenuItem }) => {
   );
 };
 
-const Profile =() =>{
-  return <MyComponent/>;
+const Profile = () => {
+  return <MyComponent />;
 }
 const Registered = () => {
-  return <RegistedEvent/>;
+  return <RegistedEvent />;
 };
 
 const UpcomingEvents = () => {
-  return <Upcoming/>;
+  return <Upcoming />;
 };
 
 const Gallery = () => {

@@ -1,5 +1,5 @@
-import React, { useState , useEffect} from 'react';
-import { useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css'; // Import CSS for styling
 
 const Auth = () => {
@@ -7,49 +7,44 @@ const Auth = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [username, setName] = useState('');
+    const [username, setUsername] = useState('');
     const [error, setError] = useState('');
     const [apiResponse, setApiResponse] = useState('');
-    const [isLogin, setIsLogin] = useState(true);
-    const [address, setAddress ] = useState('');
-    const [phone, setPhone ] = useState('');
-    const [type, setType ] = useState('');
-    const [interest, setInterest ] = useState('');
+    const [authMode, setAuthMode] = useState('login');
+    const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState('');
+    const [type, setType] = useState('');
+    const [interest, setInterest] = useState('');
+    const [adminEmail, setAdemail] =useState('');
+    const [adminPass, setAdpass] =useState('');
     const navigate = useNavigate();
 
     const collname = 'UserData';
-    
+
     useEffect(() => {
         // Fetch the list of users from the API
-        fetch(`http://localhost:5000/getUsers/${collname}`) // Replace with your API endpoint
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            setUsers(data);
-            console.log(data);
-            // const userdata = { email, password };
-            // navigate('/home', { state: userdata })
+        fetch(`http://localhost:5000/getUsers/${collname}`)
+            .then(response => response.json())
+            .then(data => {
+                setUsers(data);
+                console.log(data);
+            });
+    }, []);
 
-        })
-      }, []);
-    
-      const handleLogin = (e) => {
+    const handleLogin = (e) => {
         e.preventDefault();
         const user = users.find(user => user.email === email && user.password === password);
-    
+
         if (user) {
-          // Successful login
-          alert(`Welcome ${user.username}!, Authentication is successful, Click OK to continue`);
-          const userdata = {user}
-        //   const userdata = { user.email, user.password };
-          navigate('/home', { state: userdata })
-          // Redirect to home page or perform any other action
+            // Successful login
+            alert(`Welcome ${user.username}!, Authentication is successful, Click OK to continue`);
+            const userdata = { user };
+            navigate('/home', { state: userdata });
         } else {
-          // Failed login
-          setError('Invalid email or password');
+            // Failed login
+            setError('Invalid email or password');
         }
-      };
+    };
 
     const handleSignup = (e) => {
         e.preventDefault();
@@ -58,32 +53,38 @@ const Auth = () => {
         } else {
             setError('');
             fetch(`http://localhost:5000/addUser/${username}/${password}/${email}/${address}/${phone}/${type}/${interest}`)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                setApiResponse(data);
-                console.log(data);
+                .then(response => response.json())
+                .then(data => {
+                    setApiResponse(data);
+                    console.log(data);
+                });
+        }
+    };
 
-            })
-            
-                
+    const handleAdminLogin = (e) => {
+        e.preventDefault();
+        if (adminEmail === 'admin@mail.com' && adminPass === 'password') {
+            setError('');
+            navigate('/Admin');
+        } else {
+            setError('Invalid username or password');
         }
     };
 
     return (
         <div className='auth_main'>
             <div className='text-header'>
-                Welcome to community crusaders
+                Welcome to Community Crusaders
             </div>
             <div className='text-layer'>Unity among us.</div>
             <div className="auth-container">
-                <h2>Get started</h2>
-                <select onChange={(e) => setIsLogin(e.target.value === 'login')} className="auth-dropdown">
+                <h2>Get Started</h2>
+                <select onChange={(e) => setAuthMode(e.target.value)} className="auth-dropdown">
                     <option value="login">Volunteer Login</option>
                     <option value="signup">Create an Account</option>
+                    <option value="admin">Admin Login</option>
                 </select>
-                {isLogin ? (
+                {authMode === 'login' && (
                     <form onSubmit={handleLogin}>
                         <div className="form-group">
                             <label>Email:</label>
@@ -105,15 +106,15 @@ const Auth = () => {
                         </div>
                         <button type="submit" className='auth-button'>Login</button>
                     </form>
-                    
-                ) : (
+                )}
+                {authMode === 'signup' && (
                     <form onSubmit={handleSignup}>
                         <div className="form-group">
                             <label>Name:</label>
                             <input
                                 type="text"
                                 value={username}
-                                onChange={(e) => setName(e.target.value)}
+                                onChange={(e) => setUsername(e.target.value)}
                                 required
                             />
                         </div>
@@ -163,7 +164,7 @@ const Auth = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Votunteer type:</label>
+                            <label>Volunteer Type:</label>
                             <input
                                 type="text"
                                 value={type}
@@ -172,7 +173,7 @@ const Auth = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Area of interest</label>
+                            <label>Area of Interest:</label>
                             <input
                                 type="text"
                                 value={interest}
@@ -182,14 +183,32 @@ const Auth = () => {
                         </div>
                         <button type="submit" className='auth-button'>Sign Up</button>
                     </form>
-                
-                
                 )}
+                {authMode === 'admin' && (
+                    <form onSubmit={handleAdminLogin}>
+                        <div className="form-group">
+                            <label>Email:</label>
+                            <input
+                                type="email"
+                                value={adminEmail}
+                                onChange={(e) => setAdemail(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Password:</label>
+                            <input
+                                type="password"
+                                value={adminPass}
+                                onChange={(e) => setAdpass(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <button type="submit" className='auth-button'>Login</button>
+                    </form>
+                )}
+                {apiResponse && <div className='response'>{apiResponse[0].message}</div>}
                 {error && <p className="error">{error}</p>}
-                <div className='response'>
-                    {apiResponse.length === 1  && <span>{apiResponse[0].message}</span>}
-                </div>
-                
             </div>
         </div>
     );

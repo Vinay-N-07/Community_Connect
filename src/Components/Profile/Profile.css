@@ -1,0 +1,36 @@
+.profile-main {
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+    font-weight: lighter;
+    font-family: system-ui;
+    color: whitesmoke;
+}
+.profile-json{
+    background: #7ccbcd;
+    color: #181212;
+}
+
+.edit{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    background: aliceblue;
+    padding: 10px;
+
+}
+.width{
+    width: 20rem;
+}
+.red{
+    color: red;
+}
+.success{
+    color: green;
+}
+.btt{
+    border-color: aqua;
+    font-size: larger;
+    font-weight: lighter;
+}
+

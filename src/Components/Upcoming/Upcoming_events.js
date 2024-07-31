@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import { useLocation } from 'react-router-dom';
-
-import './Upcoming_events.css'
+import './Upcoming_events.css';
 
 const Upcoming = () => {
 

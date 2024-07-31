@@ -1,8 +1,9 @@
 import React from 'react';
 import './content.css';
-import MyComponent from '../Profile';
-import Upcoming from '../Admin/Upcoming_events';
-import RegistedEvent from '../Admin/Registered_events';
+import MyComponent from '../Profile/Profile';
+import Upcoming from '../Upcoming/Upcoming_events';
+import RegisteredEvent from '../RegisteredEvents/Registered_events';
+import Invitation from '../Invitation/invitation';
 
 
 const Content = ({ selectedMenuItem }) => {
@@ -19,7 +20,8 @@ const Content = ({ selectedMenuItem }) => {
         return <UpcomingEvents />;
       case 'Gallery':
         return <Gallery />;
-      
+      case 'Download Invitations':
+        return <Download/>;
       default:
         return <About />;
     }
@@ -36,7 +38,7 @@ const Profile = () => {
   return <MyComponent />;
 }
 const Registered = () => {
-  return <RegistedEvent />;
+  return <RegisteredEvent />;
 };
 
 const UpcomingEvents = () => {
@@ -46,6 +48,10 @@ const UpcomingEvents = () => {
 const Gallery = () => {
   return <h2>Photos</h2>;
 };
+
+const Download = () => {
+  return <Invitation/>
+}
 const About = () => {
   return <h2>About Us</h2>
 }

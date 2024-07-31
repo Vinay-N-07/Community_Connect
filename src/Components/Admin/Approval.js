@@ -19,8 +19,8 @@ const ApprovalList = () => {
             })
     }, []);
 
-    const handleApprove = async (name) => {
-        fetch(`http://localhost:5000/approval/${name}`)
+    const handleApprove = async (name, event) => {
+        fetch(`http://localhost:5000/approval/${name}/${event}`)
             .then(response => {
                 return response.json();
             })
@@ -41,7 +41,7 @@ const ApprovalList = () => {
                             <CardText className="main-text"> Status : {item.status}</CardText>
                             <div className='layout'>
                                 {item.status === 'Pending Approval' && (
-                                    <Button className='bt' onClick={() => handleApprove(item.name)}>
+                                    <Button className='bt' onClick={() => handleApprove(item.name, item.eve_name)}>
                                         Approve
                                     </Button>
 

@@ -1,0 +1,32 @@
+.invite-main{
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+}
+.invite-body{
+    display: flex;
+    justify-content: center;
+    height: 26rem;
+    width: 50rem;
+    background-image: url(invitation.jpg);
+    background-size: 50rem;
+    border: 10px solid #7cc9c4;
+    border-radius: 5px;
+}
+
+.invite-title{
+    font-size: xx-large;
+    font-weight: lighter;
+    display: flex;
+    justify-content: center;
+}
+
+.letter{
+    font-size: small;
+    margin: 10px;
+}
+
+.invite-dl{
+    height: 20px;
+    margin: 3px;
+}

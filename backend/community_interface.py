@@ -30,10 +30,12 @@ def updatedata(coll_name, name):
     mycoll.update_one({'name': name}, {"$inc": {'volunteer_registered': 1}})
 
 
-def grant_approval(coll_name, name):
+def grant_approval(coll_name, name, event):
     mycoll = db_conn(coll_name)
-    mycoll.update_one({'name': name}, {"$set": {'status': 'Approved'}})
+    mycoll.update_one({'name': name, 'eve_name': event}, {"$set": {'status': 'Approved'}})
 
+# def update_user_data(name, key, input):
+    
 
 @app.route('/addUser/<username>/<password>/<mail>/<address>/<phone>/<user_type>/<area_of_interest>', methods=['GET', 'POST'])
 def add_user(username=None, password=None, mail=None, address=None, phone=None,user_type=None,area_of_interest=None):
@@ -94,12 +96,12 @@ def register_an_event(name, eve_name, venue, date, purpose, time):
                 return jsonify([{'message': 'All slots havve been filled'}])
 
 
-@app.route('/approval/<name>', methods=['GET', 'POST'])
-def approval(name):
+@app.route('/approval/<name>/<event>', methods=['GET', 'POST'])
+def approval(name,event):
     result = getdata('RegistedEvent')
     for y in result:
-        if y['name'] == name:
-            print(grant_approval('RegistedEvent', name))
+        if y['name'] == name and y['eve_name'] == event:
+            print(grant_approval('RegistedEvent', name, event))
             return jsonify([{'message': f'Request from {name} is Approved!'}])
 
 
@@ -112,6 +114,25 @@ def registered_events(name):
             reg_list.append(a)
     return reg_list
 
+@app.route('/download_invitation/<name>', methods=['GET'])
+def download_invitation(name):
+    download_invite = getdata(coll_name='RegistedEvent')
+    invitation_list = list()
+    for a in download_invite:
+        if a['name'] == name and a['status'] == 'Approved':
+            invitation_list.append(a)
+    return invitation_list
+
+@app.route('/update_user_data/<name>/<key>/<input>', methods=['GET'])
+def update_user_data(name, key, input):
+    user_data = getdata('UserData')
+    for x in user_data:
+        if name == x['username']:
+            db_conn('UserData').update_one({'username':name}, {'$set': {key : input}})
+        return jsonify([{'message':'Changes are updated'}])
+
+
 
 if __name__ == '__main__':
     app.run(host='localhost', debug=True, port=5000)
+    

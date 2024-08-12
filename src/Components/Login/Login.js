@@ -54,7 +54,7 @@ const Auth = () => {
             setError('');
             const selectedTypes = interest.join(','); // Convert array to comma-separated string
             const selectedRole = type.join('');
-            fetch(`http://localhost:5000/addUser/${username}/${password}/${email}/${address}/${phone}/${selectedTypes}/${selectedRole}`)
+            fetch(`http://localhost:5000/addUser/${username}/${password}/${email}/${address}/${phone}/${selectedRole}/${selectedTypes}`)
                 .then(response => response.json())
                 .then(data => {
                     setApiResponse(data);
@@ -186,8 +186,8 @@ const Auth = () => {
                                 <label>
                                     <input
                                         type="checkbox"
-                                        value="plantation"
-                                        checked={interest.includes('plantation')}
+                                        value="Plantation"
+                                        checked={interest.includes('Plantation')}
                                         onChange={handleCheckboxChange}
                                     />
                                     Plantation
@@ -197,8 +197,8 @@ const Auth = () => {
                                 <label>
                                     <input
                                         type="checkbox"
-                                        value="blood_donation"
-                                        checked={interest.includes('blood_donation')}
+                                        value="Blood Donation"
+                                        checked={interest.includes('Blood Donation')}
                                         onChange={handleCheckboxChange}
                                     />
                                     Blood Donation
@@ -208,8 +208,8 @@ const Auth = () => {
                                 <label>
                                     <input
                                         type="checkbox"
-                                        value="orphanage"
-                                        checked={interest.includes('orphanage')}
+                                        value="Orphanage"
+                                        checked={interest.includes('Orphanage')}
                                         onChange={handleCheckboxChange}
                                     />
                                     Orphanage
@@ -219,8 +219,8 @@ const Auth = () => {
                                 <label>
                                     <input
                                         type="checkbox"
-                                        value="elderly_care"
-                                        checked={interest.includes('elderly_care')}
+                                        value="Elderly care"
+                                        checked={interest.includes('Elderly care')}
                                         onChange={handleCheckboxChange}
                                     />
                                     Elderly Care
@@ -230,8 +230,8 @@ const Auth = () => {
                                 <label>
                                     <input
                                         type="checkbox"
-                                        value="animal_rescue"
-                                        checked={interest.includes('animal_rescue')}
+                                        value="Animal rescue"
+                                        checked={interest.includes('Animal rescue')}
                                         onChange={handleCheckboxChange}
                                     />
                                     Animal Rescue

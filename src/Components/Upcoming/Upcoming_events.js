@@ -16,7 +16,7 @@ const Upcoming = () => {
 
   // Example purposes string from a variable
   const purposesString = user.area_of_interest; // Replace this with your actual variable
-  const purposes = purposesString.split(', ').map(purpose => purpose.trim()); // Split string into array
+  const purposes = purposesString.split(',').map(purpose => purpose.trim()); // Split string into array
 
   useEffect(() => {
     fetch(`http://localhost:5000/getUsers/${collname}`)

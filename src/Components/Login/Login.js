@@ -52,7 +52,7 @@ const Auth = () => {
             setError('Passwords do not match');
         } else {
             setError('');
-            const selectedTypes = interest.join(','); // Convert array to comma-separated string
+            const selectedTypes = interest.join(',');
             const selectedRole = type.join('');
             fetch(`http://localhost:5000/addUser/${username}/${password}/${email}/${address}/${phone}/${selectedRole}/${selectedTypes}`)
                 .then(response => response.json())

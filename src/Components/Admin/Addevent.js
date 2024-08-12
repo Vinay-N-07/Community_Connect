@@ -10,11 +10,12 @@ const Addevent = () => {
     const [time, setTime] = useState('');
     const [purpose, setPurpose] = useState('');
     const [apiResponse, setApiResponse] = useState('');
+    const [strength, setStrength] = useState('');
 
     const handleAddEvent = (e) => {
         e.preventDefault();
         // Replace with your API endpoint
-        fetch(`http://localhost:5000/add_event/${eventname}/${venue}/${date}/${time}/${purpose}`)
+        fetch(`http://localhost:5000/add_event/${eventname}/${venue}/${date}/${time}/${purpose}/${strength}`)
             .then(response => {
                 return response.json();
             })
@@ -67,6 +68,13 @@ const Addevent = () => {
                     id="purpose"
                     value={purpose}
                     onChange={(e) => setPurpose(e.target.value)}
+                />
+                <label htmlFor="purpose">Maximum strength of the event</label>
+                <input
+                    type="text"
+                    id="strength"
+                    value={strength}
+                    onChange={(e) => setStrength(e.target.value)}
                 />
 
                 <button type="submit">Create Event</button>

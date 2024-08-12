@@ -13,10 +13,10 @@ const Auth = () => {
     const [authMode, setAuthMode] = useState('login');
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
-    const [type, setType] = useState('');
+    const [type, setType] = useState([]);
     const [interest, setInterest] = useState('');
-    const [adminEmail, setAdemail] =useState('');
-    const [adminPass, setAdpass] =useState('');
+    const [adminEmail, setAdemail] = useState('');
+    const [adminPass, setAdpass] = useState('');
     const navigate = useNavigate();
 
     const collname = 'UserData';
@@ -52,7 +52,9 @@ const Auth = () => {
             setError('Passwords do not match');
         } else {
             setError('');
-            fetch(`http://localhost:5000/addUser/${username}/${password}/${email}/${address}/${phone}/${type}/${interest}`)
+            const selectedTypes = interest.join(','); // Convert array to comma-separated string
+            const selectedRole = type.join('');
+            fetch(`http://localhost:5000/addUser/${username}/${password}/${email}/${address}/${phone}/${selectedTypes}/${selectedRole}`)
                 .then(response => response.json())
                 .then(data => {
                     setApiResponse(data);
@@ -71,10 +73,25 @@ const Auth = () => {
         }
     };
 
+    const handleCheckboxChange = (e) => {
+        const { value, checked } = e.target;
+        if (checked) {
+            setInterest(prevType => [...prevType, value]);
+        } else {
+            setInterest(prevType => prevType.filter(t => t !== value));
+        }
+    };
+
+    const handleVolunteerCheck = (e) => {
+        const { value } = e.target;
+
+        setType([value]);
+    };
+
     return (
         <div className='auth_main'>
             <div className='text-header'>
-                Welcome to Community Crusaders
+                Welcome to Community Compass
             </div>
             <div className='text-layer'>Unity among us.</div>
             <div className="auth-container">
@@ -164,26 +181,92 @@ const Auth = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Volunteer Type:</label>
-                            <input
-                                type="text"
-                                value={type}
-                                onChange={(e) => setType(e.target.value)}
-                                required
-                            />
+                            <label>Area of interest:</label>
+                            <div className='checkitems'> 
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        value="plantation"
+                                        checked={interest.includes('plantation')}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    Plantation
+                                </label>
+                            </div>
+                            <div className='checkitems'>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        value="blood_donation"
+                                        checked={interest.includes('blood_donation')}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    Blood Donation
+                                </label>
+                            </div>
+                            <div className='checkitems'>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        value="orphanage"
+                                        checked={interest.includes('orphanage')}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    Orphanage
+                                </label>
+                            </div>
+                            <div className='checkitems'>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        value="elderly_care"
+                                        checked={interest.includes('elderly_care')}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    Elderly Care
+                                </label>
+                            </div>
+                            <div className='checkitems'>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        value="animal_rescue"
+                                        checked={interest.includes('animal_rescue')}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    Animal Rescue
+                                </label>
+                            </div>
                         </div>
                         <div className="form-group">
-                            <label>Area of Interest:</label>
-                            <input
-                                type="text"
-                                value={interest}
-                                onChange={(e) => setInterest(e.target.value)}
-                                required
-                            />
+                            <label>Volunteer type:</label>
+                            <div className='checkitems'> 
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        value="Student"
+                                        checked={type.includes('Student')}
+                                        onChange={handleVolunteerCheck}
+                                    />
+                                    Student
+                                </label>
+                            </div>
+                            <div className='checkitems'>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        value="Working professional"
+                                        checked={type.includes('Working professional')}
+                                        onChange={handleVolunteerCheck}
+                                    />
+                                    Working professional
+                                </label>
+                            </div>
                         </div>
                         <button type="submit" className='auth-button'>Sign Up</button>
                     </form>
                 )}
+
                 {authMode === 'admin' && (
                     <form onSubmit={handleAdminLogin}>
                         <div className="form-group">

@@ -18,7 +18,7 @@ const RegisteredEvent = () => {
             })
     }, []);
 
-    
+
     return (
         <div>
             <div className='register-dashboard-text'>Registered events</div>
@@ -35,16 +35,17 @@ const RegisteredEvent = () => {
                                 <CardText className={item.status === 'Pending Approval' ? 'pending' : 'approved'}>
                                     {item.status === 'Pending Approval' ? item.status : 'Approved'}
                                 </CardText>
+                                {item.status === 'Approved' && (
+                                    <div className='redirect'>
+                                        Please download your invitation for {item.eve_name}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </CardBody>
                 </Card>
             ))}
             <div>{registeredevents.lenght >= 0 && <span >{registeredevents}</span>}</div>
-            {/* <div>
-                <button onClick={handleDownload}>Download as JPG</button>
-            </div> */}
-
         </div>
 
     );

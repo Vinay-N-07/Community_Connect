@@ -32,11 +32,11 @@
 .body {
 
     background-image: url(upcoming.jpg);
-    background-size: 80rem 22rem;
+    background-size: 80rem 23rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
-    height: 20rem;
+    height: 21rem;
     padding: 10px;
     width: 30rem;
 }
@@ -75,4 +75,23 @@
     font-size: medium;
     font-weight: lighter;
     margin: 5px;
+}
+.second-header{
+    font-weight: 330;
+    display: flex;
+    justify-content: center;
+    color: whitesmoke;
+    font-size: inherit;
+}
+.grid-view{
+    font-size: large;
+    font-weight: lighter;
+    display: flex;
+    justify-content: center;
+    color: chartreuse;
+}
+
+.checkb-position{
+    display: flex;
+    justify-content: center;
 }

@@ -15,17 +15,26 @@
     display: flex;
     justify-content: center;
     margin: 10px;
-    background: aliceblue;
     padding: 10px;
 
+}
+.edit form{
+    display: flex;
+    justify-content: center;
+    background: azure;
+    padding: 5px;
 }
 .width{
     width: 20rem;
 }
 .red{
+    display: flex;
+    justify-content: center;
     color: red;
 }
 .success{
+    display: flex;
+    justify-content: center;
     color: green;
 }
 .btt{

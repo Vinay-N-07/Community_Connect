@@ -98,3 +98,9 @@
 .hidden {
     visibility: hidden;
 }
+.redirect{
+    display: flex;
+    justify-content: center;
+    background: darkcyan;
+    border-radius: 10px;
+}

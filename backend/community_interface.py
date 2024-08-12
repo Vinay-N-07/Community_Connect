@@ -64,10 +64,10 @@ def retrieveData(coll_name):
     return result
 
 
-@app.route("/add_event/<eventname>/<venue>/<date>/<time>/<purpose>", methods=['GET', 'POST'])
-def add_event(eventname, venue, date, time, purpose):
+@app.route("/add_event/<eventname>/<venue>/<date>/<time>/<purpose>/<maximum_strength>", methods=['GET', 'POST'])
+def add_event(eventname, venue, date, time, purpose,maximum_strength):
     try:
-        event = {'name': eventname, 'venue': venue, 'date': date, 'timing': time, 'purpose': purpose, 'max_strength': 3,
+        event = {'name': eventname, 'venue': venue, 'date': date, 'timing': time, 'purpose': purpose, 'max_strength': int(maximum_strength),
                  'volunteer_registered': 0}
         db_conn('CreateEvents').insert_one(event)
         return jsonify([{"message": "Event added successfully!"}]), 200
@@ -130,9 +130,24 @@ def update_user_data(name, key, input):
         if name == x['username']:
             db_conn('UserData').update_one({'username':name}, {'$set': {key : input}})
         return jsonify([{'message':'Changes are updated'}])
+    
+def geteventmember():
+    reg_data = getdata('RegistedEvent')
+    result = {}
+    for x in reg_data:
+        for key,value in {x['eve_name']: x['name']}.items():
+            if key in result:
+               result[key].append(value)
+            else:
+                result[key] = [value]
+    return result
+           
+    
+
 
 
 
 if __name__ == '__main__':
     app.run(host='localhost', debug=True, port=5000)
+    
     

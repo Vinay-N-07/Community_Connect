@@ -25,7 +25,8 @@ function Homepage() {
   return (
     <div className='home'>
       <div className='Dashboard-header'>
-        <h1 className='Dashboard-text'>Community crusaders</h1>
+        <div className='align'></div>
+        <p className='Dashboard-text'>Community Compass</p>
         <div className='right-corner'>
           <div className='icon'>
             <FontAwesomeIcon icon={faUser} />

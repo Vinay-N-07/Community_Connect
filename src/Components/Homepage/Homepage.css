@@ -5,6 +5,12 @@
     overflow-y: auto;
 }
 
+.align{
+    width: 10rem;
+    display: flex;
+    justify-content: center;
+}
+
 .Dashboard-header {
     display: flex;
     height: 3rem;

@@ -18,8 +18,6 @@ const Content = ({ selectedMenuItem }) => {
         return <Registered />;
       case 'Forthcoming Events':
         return <UpcomingEvents />;
-      case 'Gallery':
-        return <Gallery />;
       case 'Download Invitations':
         return <Download/>;
       default:
@@ -45,15 +43,12 @@ const UpcomingEvents = () => {
   return <Upcoming />;
 };
 
-const Gallery = () => {
-  return <h2>Photos</h2>;
-};
 
 const Download = () => {
   return <Invitation/>
 }
 const About = () => {
-  return <h2>About Us</h2>
+  return <div>About Us</div>
 }
 
 export default Content;

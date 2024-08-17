@@ -2,7 +2,7 @@ import React from 'react';
 import './sidebar.css';
 
 const Sidebar = ({ selectedMenuItem, onMenuItemClick }) => {
-  const menuItems = ['About Us','Profile','Forthcoming Events', 'Registered Events', 'Download Invitations'];
+  const menuItems = ['About Us','Profile','Forthcoming Events', 'Registered Events', 'My Invitations'];
 
   return (
     <div className="sidebar">

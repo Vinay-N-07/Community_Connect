@@ -1,0 +1,45 @@
+.about-main{
+    
+    font-size: xx-large;
+    color: antiquewhite;
+    font-family: system-ui;
+    font-weight: lighter;
+    background: rgba(0, 0, 0, 0.5);
+    width: 71.5rem;
+}
+
+.about-title{
+    font-size: xx-large;
+    font-weight: 300;
+    padding: 20px;
+    color: whitesmoke;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.about-intro{
+    font-size: large;
+    font-weight: 300;
+    color: whitesmoke;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+}
+.highlight {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+.about-main h3{
+    font-size: xx-large;
+    font-weight: 300;
+    padding: 10px;
+    color: whitesmoke;
+    
+}
+
+.feature{
+    
+    margin: 20px;
+    font-size: large;
+    font-weight: 300;
+    color: whitesmoke;
+}

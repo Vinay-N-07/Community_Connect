@@ -3,10 +3,14 @@ from flask import Flask, jsonify, request
 from pymongo import MongoClient
 from flask_cors import CORS
 import cryptography
+# import gridfs
+# from io import BytesIO
+# from bson import ObjectId
 
 app = Flask(__name__)
 CORS(app)
 app.config['CORS_HEADERS'] = 'application/json'
+
 
 
 def db_conn(collection_name):
@@ -142,7 +146,28 @@ def geteventmember():
                 result[key] = [value]
     return result
            
+# @app.route('/upload', methods=['POST'])
+# def upload_file():
+#     if 'file' not in request.files:
+#         return jsonify({"error": "No file part in the request"}), 400
+
+#     file = request.files['file']
+#     if file.filename == '':
+#         return jsonify({"error": "No file selected for uploading"}), 400
+
+#     # Store the file in MongoDB GridFS
+#     file_id = fs.put(file, filename=file.filename)
     
+#     return jsonify({"message": "File uploaded successfully", "file_id": str(file_id)}), 201
+
+# @app.route('/download/<file_id>', methods=['GET'])
+# def download_file(file_id):
+#     try:
+#         # Fetch the file from GridFS using the file_id
+#         file = fs.get(ObjectId(file_id))
+#         return send_file(BytesIO(file.read()), attachment_filename=file.filename, as_attachment=True)
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 404    
 
 
 

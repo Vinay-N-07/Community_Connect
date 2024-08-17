@@ -38,7 +38,8 @@ const Invitation = () => {
         };
 
     return (
-        <div>
+        <div> 
+            <div className='my-invite'>My Invitations</div>
             {invited.map((item, index) => (
                 <div key={index} className='invite-main'>
                     <div ref={invitationRef} className='invite-body'>

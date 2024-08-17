@@ -7,6 +7,7 @@
     font-weight: lighter;
     font-family: system-ui;
     color: whitesmoke;
+    background: rgba(0, 0, 0, 0.5);
 }
 .reg {
     display: flex;

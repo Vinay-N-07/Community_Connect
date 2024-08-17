@@ -1,3 +1,12 @@
+.my-invite{
+    display: flex;
+    justify-content: left;
+    font-size: xx-large;
+    font-weight: lighter;
+    font-family: system-ui;
+    color: whitesmoke;
+    
+}
 .invite-main{
     display: flex;
     justify-content: center;

@@ -40,7 +40,9 @@ def grant_approval(coll_name, name, event):
 
 # def update_user_data(name, key, input):
     
-
+@app.route('/', methods=['GET'])
+def home():
+    return "<h1>Welcome to community connect API centre</h1>"
 @app.route('/addUser/<username>/<password>/<mail>/<address>/<phone>/<user_type>/<area_of_interest>', methods=['GET', 'POST'])
 def add_user(username=None, password=None, mail=None, address=None, phone=None,user_type=None,area_of_interest=None):
     if not username or not password:
@@ -193,6 +195,6 @@ def get_images():
 
 
 if __name__ == '__main__':
-    app.run(host='localhost', debug=True, port=5000)
+    app.run(host='0.0.0.0', debug=True, port=5000)
     
     

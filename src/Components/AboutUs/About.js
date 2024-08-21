@@ -1,5 +1,6 @@
 import React from 'react';
 import './About.css'
+import ImageGallery from './photos';
 
 const Main = () => {
 
@@ -20,6 +21,8 @@ const Main = () => {
                 <p className='feature'>Registered events: You can the events that you are registered and approval status of the event.</p>
                 <p className='feature'>My Invitations: Once the event is approved by the Event manager, The invitations will be published, you can download them.</p>
             </div>
+            <div>Gallery</div>
+            <div><ImageGallery/></div>
         </div>
     )
 

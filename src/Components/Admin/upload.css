@@ -1,0 +1,73 @@
+/* Styling for the container */
+.upload-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+  }
+  
+  /* Styling for the heading */
+  .upload-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Styling for form groups */
+  .upload-container .form-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Styling for the label */
+  .upload-container .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Styling for the file input */
+  .upload-container .form-group input[type="file"] {
+    display: block;
+    width: 100%;
+  }
+  
+  /* Styling for the upload button */
+  .upload-container .btn-primary {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .upload-container .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Styling for alerts */
+  .upload-container .alert {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .upload-container .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .upload-container .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  

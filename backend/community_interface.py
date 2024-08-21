@@ -1,11 +1,11 @@
+import base64
 import CORScanner as CORScanner
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_file
 from pymongo import MongoClient
 from flask_cors import CORS
 import cryptography
-# import gridfs
-# from io import BytesIO
-# from bson import ObjectId
+import gridfs
+
 
 app = Flask(__name__)
 CORS(app)
@@ -145,29 +145,49 @@ def geteventmember():
             else:
                 result[key] = [value]
     return result
-           
-# @app.route('/upload', methods=['POST'])
-# def upload_file():
-#     if 'file' not in request.files:
-#         return jsonify({"error": "No file part in the request"}), 400
 
-#     file = request.files['file']
-#     if file.filename == '':
-#         return jsonify({"error": "No file selected for uploading"}), 400
+uri = "mongodb+srv://Vinay_N:Vinay_1998@communityconnect.ntsofil.mongodb.net/"
+client = MongoClient(uri)
+db = client["Images"]
+fs = gridfs.GridFS(db)
 
-#     # Store the file in MongoDB GridFS
-#     file_id = fs.put(file, filename=file.filename)
+# File Upload Route
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file part in the request"}), 400
+
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({"error": "No file selected for uploading"}), 400
+
+    # Store the file in MongoDB GridFS
+    file_id = fs.put(file, filename=file.filename)
     
-#     return jsonify({"message": "File uploaded successfully", "file_id": str(file_id)}), 201
+    return jsonify({"message": "File uploaded successfully", "file_id": str(file_id)}), 201
 
-# @app.route('/download/<file_id>', methods=['GET'])
-# def download_file(file_id):
-#     try:
-#         # Fetch the file from GridFS using the file_id
-#         file = fs.get(ObjectId(file_id))
-#         return send_file(BytesIO(file.read()), attachment_filename=file.filename, as_attachment=True)
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 404    
+
+# Retrieve Images Route
+@app.route('/images', methods=['GET'])
+def get_images():
+    images = []
+    
+    # Retrieve all files stored in GridFS
+    for grid_out in fs.find():
+        # Read binary data from GridFS
+        file_data = grid_out.read()
+        
+        # Convert binary image data to base64 string
+        image_data = base64.b64encode(file_data).decode('utf-8')
+        
+        # Append image details to list
+        images.append({
+            'name': grid_out.filename,
+            'image': image_data
+        })
+
+    # Send the images as a JSON response
+    return jsonify(images), 200 
 
 
 

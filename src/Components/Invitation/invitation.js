@@ -1,7 +1,8 @@
-import React, { useState, useEffect ,useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { toJpeg } from 'html-to-image';
 import download from 'downloadjs';
 import { useLocation } from 'react-router-dom';
+import logo from './logo.jpg';
 import './Invitation.css';
 
 const Invitation = () => {
@@ -21,7 +22,7 @@ const Invitation = () => {
             })
     }, []);
 
-    
+
 
     const handleDownload = () => {
         if (invitationRef.current === null) {
@@ -35,15 +36,34 @@ const Invitation = () => {
             .catch((err) => {
                 console.error('Failed to convert HTML to JPG', err);
             });
-        };
+    };
 
     return (
-        <div> 
+        <div>
             <div className='my-invite'>My Invitations</div>
             {invited.map((item, index) => (
                 <div key={index} className='invite-main'>
                     <div ref={invitationRef} className='invite-body'>
                         <div>
+                            <div className='align'>
+                                <div >
+                                    <header>
+                                        <img
+                                            src={logo}
+                                            alt="Logo"
+                                            style={{
+                                                display: 'flex',
+                                                width: '40px',
+                                                height: '40px',
+                                                borderRadius: '50%',
+                                                objectFit: 'cover',
+                                                padding: '4px'
+                                            }}
+                                        />
+                                    </header>
+                                </div>
+                                <div>Community Compass</div>
+                            </div>
                             <div className='invite-title' >YOU ARE INVITED!</div>
                             <div className='letter'>
                                 <p>Dear {user.username},</p>
@@ -60,7 +80,7 @@ const Invitation = () => {
                                 <p>Warm regards,</p>
                                 <strong>Event Manager
                                     <p>
-                                        Community crusaders.
+                                        Community Compass.
                                     </p>
                                 </strong>
                             </div>

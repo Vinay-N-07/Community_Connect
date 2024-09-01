@@ -70,10 +70,10 @@ def retrieveData(coll_name):
     return result
 
 
-@app.route("/add_event/<eventname>/<venue>/<date>/<time>/<purpose>/<maximum_strength>", methods=['GET', 'POST'])
-def add_event(eventname, venue, date, time, purpose,maximum_strength):
+@app.route("/add_event/<eventname>/<venue>/<date>/<time>/<purpose>/<maximum_strength>/<desc>", methods=['GET', 'POST'])
+def add_event(eventname, venue, date, time, purpose,maximum_strength,desc):
     try:
-        event = {'name': eventname, 'venue': venue, 'date': date, 'timing': time, 'purpose': purpose, 'max_strength': int(maximum_strength),
+        event = {'name': eventname, 'desc':desc, 'venue': venue, 'date': date, 'timing': time, 'purpose': purpose, 'max_strength': int(maximum_strength),
                  'volunteer_registered': 0}
         db_conn('CreateEvents').insert_one(event)
         return jsonify([{"message": "Event added successfully!"}]), 200
@@ -81,12 +81,12 @@ def add_event(eventname, venue, date, time, purpose,maximum_strength):
         return jsonify({"error": str(e)}), 400
 
 
-@app.route('/to_register/<name>/<eve_name>/<venue>/<date>/<time>/<purpose>', methods=['GET', 'POST'])
-def register_an_event(name, eve_name, venue, date, purpose, time):
+@app.route('/to_register/<name>/<eve_name>/<venue>/<date>/<time>/<purpose>/<desc>', methods=['GET', 'POST'])
+def register_an_event(name, eve_name, venue, date, purpose, time,desc):
     check_registration = getdata(coll_name='RegistedEvent')
     for a in check_registration:
         if a['eve_name'] == eve_name and a['name'] == name:
-            return jsonify([{'message': f'{name} has already registered for {eve_name}'}])
+            return jsonify([{'sorry': f'{name} has already registered for {eve_name}'}])
 
     x = getdata(coll_name='CreateEvents')
     for y in x:
@@ -95,6 +95,7 @@ def register_an_event(name, eve_name, venue, date, purpose, time):
                 print(updatedata('CreateEvents', eve_name))
                 r_event = {'name': name, 'eve_name': eve_name, 'venue': venue, 'date': date, 'time': time,
                            'purpose': purpose,
+                           'desc':desc,
                            'status': 'Pending Approval'}
                 db_conn('RegistedEvent').insert_one(r_event)
                 return jsonify([{'message': f'Congratulations {name} !,You have registered for {eve_name}.'}]), 200
@@ -190,9 +191,34 @@ def get_images():
 
     # Send the images as a JSON response
     return jsonify(images), 200 
+@app.route('/eventdetails', methods=['GET'])
+def get_combined_event_user_details():
+    list_of_users = getdata('RegistedEvent')
+    event_dict = {}
+    for user in list_of_users:
+        event_name = user.get('eve_name', 'Unknown Event')
+        user_name = user.get('name', 'Unknown User')
+        if event_name not in event_dict:
+            event_dict[event_name] = {}
+        event_dict[event_name][user_name] = fetch_user_details_filtered(user_name)
+    result = [{event_name: user_details} for event_name, user_details in event_dict.items()]
+    return result
+
+def fetch_user_details_filtered(name):
+    user_data = []
+    list_of_users = getdata('UserData')
+    for user in list_of_users:
+        if user['username'] == name:
+            user_details = {key: value for key, value in user.items() if key not in ['password', 'username']}
+            user_data.append(user_details)
+    return user_data
 
 
 
+# Example call to the function
+
+        
+            
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5000)

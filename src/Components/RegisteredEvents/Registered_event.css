@@ -32,14 +32,14 @@
 
 .reg-bod{
 
-    background-image: url(Reg_card.jpg);
+    background-image: url(Reg_card2.jpg);
     background-size: 80rem 22rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
     height: 20rem;
     padding: 10px;
-    width: 30rem;
+    width: 50rem;
 }
 
 .title {
@@ -47,7 +47,7 @@
     justify-content: center;
     font-weight: lighter;
     font-size: xx-large;
-    color: #4f3b3b;
+    color: #ed7680;
 }
 
 .text {

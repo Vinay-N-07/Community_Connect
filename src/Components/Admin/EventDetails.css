@@ -1,0 +1,48 @@
+/* EventDetails.css */
+
+.event-details-container {
+  display: inline-flex;
+  gap: 30px;
+  margin: 20px;
+  }
+  
+  .event-card {
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .event-title {
+    font-size: 1.5rem;
+    font-weight: lighter;
+    margin-bottom: 15px;
+    padding: 10px;
+  }
+  
+  .participant-info {
+    display: flow-root;
+    justify-content: center;
+    font-weight: 400;
+    background: bisque;
+
+  }
+  .participant-name{
+    display: flex;
+    justify-content: center;
+    font-size: larger;
+
+  }
+  
+  .detail-item {
+    margin-left: 20px;
+  }
+  
+  .detail-item p {
+    margin: 5px 0;
+  }
+
+  .excel_download{
+    display: flex;
+    justify-content: center;
+    font-size: medium;
+  }
+  

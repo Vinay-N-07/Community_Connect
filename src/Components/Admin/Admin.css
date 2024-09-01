@@ -10,6 +10,7 @@
     display: flex;
     justify-content: space-between;
     background: blueviolet;
+    height: 3rem;
 }
 .dash-text{
     font-size: x-large;
@@ -25,7 +26,7 @@
     padding: 20px;
 }
 .btn{
-    font-size: x-large;
+    font-size: larger;
     font-family: serif;
     border-color: transparent;
 }
@@ -38,6 +39,11 @@
     margin: 14px;
   }
 
+.align{
+    width: 10rem;
+    display: flex;
+    justify-content: start;
+  }
 
 
 

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from '../Sidebar/sidebar';
 import Content from '../Content/content';
 import './Homepage.css';
-
+import logo from './logo.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
@@ -25,7 +25,22 @@ function Homepage() {
   return (
     <div className='home'>
       <div className='Dashboard-header'>
-        <div className='align'></div>
+        <div className='align'>
+          <header>
+            <img
+            src={logo}
+              alt="Logo"
+              style={{
+                display: 'flex',
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',  
+                objectFit: 'cover',   
+                padding: '4px'
+              }}
+            />
+          </header>
+        </div>
         <p className='Dashboard-text'>Community Compass</p>
         <div className='right-corner'>
           <div className='icon'>

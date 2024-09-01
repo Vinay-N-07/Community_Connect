@@ -21,7 +21,8 @@ const Main = () => {
                 <p className='feature'>Registered events: You can the events that you are registered and approval status of the event.</p>
                 <p className='feature'>My Invitations: Once the event is approved by the Event manager, The invitations will be published, you can download them.</p>
             </div>
-            <div>Gallery</div>
+            <div className='margin'>Gallery</div>
+            <h6 className='margin'>Checkout the event photos.</h6>
             <div><ImageGallery/></div>
         </div>
     )

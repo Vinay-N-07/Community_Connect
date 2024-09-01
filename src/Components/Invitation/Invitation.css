@@ -15,10 +15,10 @@
 .invite-body{
     display: flex;
     justify-content: center;
-    height: 26rem;
+    height: 33rem;
     width: 50rem;
     background-image: url(invitation.jpg);
-    background-size: 50rem;
+    background-size: 80rem 33rem;
     border: 10px solid #7cc9c4;
     border-radius: 5px;
 }

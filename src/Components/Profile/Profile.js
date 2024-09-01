@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { JsonToTable } from 'react-json-to-table';
 import './Profile.css';
+import loadingGif from './loading.gif'; // Make sure the path to your loading GIF is correct
 
 function MyComponent() {
     const [info, setInfo] = useState([]);
@@ -15,11 +16,11 @@ function MyComponent() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [profile, setProfile] = useState({});
+    const [isFetchingData, setIsFetchingData] = useState(true); // Add state for fetching data
 
     const collname = 'UserData';
 
     useEffect(() => {
-        // Fetch the list of users from the API
         fetch(`http://localhost:5000/getUsers/${collname}`)
             .then(response => response.json())
             .then(data => {
@@ -37,10 +38,12 @@ function MyComponent() {
                         }
                     });
                 }
+                setIsFetchingData(false); // Set fetching data to false after data is fetched
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
                 setError('Failed to fetch user data');
+                setIsFetchingData(false); // Set fetching data to false in case of error
             });
     }, [user.username]);
 
@@ -83,52 +86,55 @@ function MyComponent() {
     return (
         <div>
             <div className="profile-main">Volunteer's profile</div>
-            <div className="profile-json">
-                <JsonToTable json={profile} />
-            </div>
-            <div className='edit'>
-                {showEditButton && (
-                    <button className='btt' onClick={() => { setShowEditForm(true); setShowEditButton(false); }}>
-                        Edit Profile
-                    </button>
-                )}
-                {showEditForm && (
-                    <form onSubmit={handleSubmit}>
-                        
-                        <div>
-                            <label htmlFor="key">Select the field:   </label>
-                            <input
-                                className='width'
-                                id="key"
-                                type="text"
-                                value={key}
-                                onChange={(e) => setKey(e.target.value)}
-                                placeholder="Select the field you want to edit (ex: username)"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="input">Insert:   </label>
-                            <input
-                                className='width'
-                                id="input"
-                                type="text"
-                                value={input}
-                                onChange={(e) => setInput(e.target.value)}
-                                placeholder="Insert new value"
-                            />
-                        </div>
-                        <button type="submit" disabled={loading}>
-                            {loading ? 'Loading...' : 'Submit'}
-                        </button>
-                        
-                    </form>
-                    
-                )}
-                
-                
-            </div>
-            {res && <p className='success'>{res[0]?.message || 'No message available'}</p>}
-            {error && <p className='red'>{error}</p>}
+            {isFetchingData ? (
+                <div className='loading-container'>
+                    <img src={loadingGif} alt="Loading..." className='loading-gif' />
+                </div>
+            ) : (
+                <>
+                    <div className="profile-json">
+                        <JsonToTable json={profile} />
+                    </div>
+                    <div className='edit'>
+                        {showEditButton && (
+                            <button className='btt' onClick={() => { setShowEditForm(true); setShowEditButton(false); }}>
+                                Edit Profile
+                            </button>
+                        )}
+                        {showEditForm && (
+                            <form onSubmit={handleSubmit}>
+                                <div>
+                                    <label htmlFor="key">Select the field:   </label>
+                                    <input
+                                        className='width'
+                                        id="key"
+                                        type="text"
+                                        value={key}
+                                        onChange={(e) => setKey(e.target.value)}
+                                        placeholder="Select the field you want to edit (ex: username)"
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="input">Insert:   </label>
+                                    <input
+                                        className='width'
+                                        id="input"
+                                        type="text"
+                                        value={input}
+                                        onChange={(e) => setInput(e.target.value)}
+                                        placeholder="Insert new value"
+                                    />
+                                </div>
+                                <button type="submit" disabled={loading}>
+                                    {loading ? 'Loading...' : 'Submit'}
+                                </button>
+                            </form>
+                        )}
+                    </div>
+                    {res && <p className='success'>{res[0]?.message || 'No message available'}</p>}
+                    {error && <p className='red'>{error}</p>}
+                </>
+            )}
         </div>
     );
 }

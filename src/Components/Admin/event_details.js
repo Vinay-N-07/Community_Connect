@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, CardBody, CardTitle, CardText, Button } from 'reactstrap';
 import { utils, write } from 'xlsx';
 import { saveAs } from 'file-saver';
-import './EventDetails.css';  // Import new CSS file
+import './EventDetails.css';
+import loadingGif from './loading.gif';
 
 const EventDetails = () => {
     const [data, setData] = useState([]);
@@ -70,7 +71,9 @@ const EventDetails = () => {
     return (
         <Container className="event-details-container">
             {loading ? (
-                <p>Loading...</p>
+                <div style={{ display:'flex', justifyContent:'centre', marginTop: '20%' }}>
+                    <img src={loadingGif} alt="Loading..." />
+                </div>
             ) : error ? (
                 <p>Error fetching data: {error.message}</p>
             ) : data.length === 0 ? (
@@ -82,7 +85,7 @@ const EventDetails = () => {
 
                     return (
                         <Row key={index} className="mb-4">
-                            <Col style={{background: '#8ca3eb',borderRadius: '10px',width: '30rem',cursor: 'pointer',    margin:' 20px'}}>
+                            <Col style={{ background: '#8ca3eb', borderRadius: '10px', width: '30rem', cursor: 'pointer', margin: '20px' }}>
                                 <Card className="event-card">
                                     <CardBody>
                                         <Row className="align-items-center">
@@ -90,7 +93,7 @@ const EventDetails = () => {
                                                 <CardTitle tag="h5" className="event-title">Event name: {eventName}</CardTitle>
                                             </Col>
                                         </Row>
-                                        <div style={{display: 'flex',justifyContent: 'center', color:'blue'}}>List of volunteers enrolled</div>
+                                        <div style={{ display: 'flex', justifyContent: 'center', color: 'blue' }}>List of volunteers enrolled</div>
                                         {Object.entries(participants).map(([participant, details], idx) => (
                                             <CardText key={idx} className="participant-info">
                                                 <div
@@ -102,7 +105,6 @@ const EventDetails = () => {
                                                 {expandedParticipant && expandedParticipant.eventName === eventName && expandedParticipant.participant === participant && (
                                                     <div className="detail-container">
                                                         {details.map((detail, detailIndex) => (
-                                                            <div>
                                                             <div key={detailIndex} className="detail-item">
                                                                 <p><strong>Email:</strong> {detail.email}</p>
                                                                 <p><strong>Address:</strong> {detail.address}</p>
@@ -110,27 +112,24 @@ const EventDetails = () => {
                                                                 <p><strong>Volunteer Type:</strong> {detail.volunteer_type}</p>
                                                                 <p><strong>Area of Interest:</strong> {detail.area_of_interest}</p>
                                                             </div>
-                                                            </div>
                                                         ))}
                                                     </div>
                                                 )}
                                             </CardText>
                                         ))}
                                     </CardBody>
-                                    <div style={{ display: 'flex',justifyContent: 'center'}}>
+                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
                                         <button color="primary" className='excel_download' onClick={() => downloadExcel(eventName)}>
                                             Download Details
                                         </button>
                                     </div>
                                 </Card>
-
                             </Col>
                         </Row>
                     );
                 })
             )}
         </Container>
-
     );
 };
 

@@ -41,7 +41,7 @@ const FileUpload = () => {
 
   return (
     <div className="upload-container">
-      <h2>File Upload</h2>
+      <h2>Upload pictures of events in gallery</h2>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label for="file">Select File:</Label>

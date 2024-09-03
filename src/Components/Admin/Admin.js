@@ -53,12 +53,14 @@ const LoadAndExecuteScript = () => {
                         />
                     </header>
                 </div>
-                <div className='dash-text'>Community Crusaders - Administration Centre</div>
+                <div className='dash-text'>Community Compass - Administration Centre</div>
                 <div className='log'>
                     <button onClick={logout} className='btn logout-btn'>Logout</button>
                 </div>
             </div>
-            <div style={{display: 'contents'}}>
+            <div style={{ display: 'flex', justifyContent: 'center', margin: '30px', fontSize: 'x-large', textAlign: 'center', background: '#97e4e4',fontFamily: 'fangsong',borderRadius: '20px'}}>The administrator possesses the authority to create and manage events, review and approve participation requests from volunteers, upload recent event photos to the Community Compass gallery, and access detailed information about each event, with the option to download the details in an Excel file.</div>
+
+            <div style={{ display: 'contents' }}>
             <div className='handle-button'>
                 <button onClick={handleClickForAddevent} className='btn'>
                     {showAddevent ? 'Hide Event Management' : 'Event Management'}
@@ -88,8 +90,8 @@ const LoadAndExecuteScript = () => {
             <div>
                 {showEventDetails && <EventDetails />}
             </div>
-            </div>
         </div>
+        </div >
     );
 };
 

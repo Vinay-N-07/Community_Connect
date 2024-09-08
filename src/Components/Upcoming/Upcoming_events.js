@@ -119,7 +119,7 @@ const Upcoming = () => {
 
       {loading ? (
         <div className='loading-container'>
-          <img src={loadingGif} alt="Loading..." className='loading-gif' />
+          <img src={loadingGif} alt="Loading..."/>
         </div>
       ) : (
         getdata
@@ -130,7 +130,7 @@ const Upcoming = () => {
                 <div>
                   <CardTitle className='title'>Event name: {item.name}</CardTitle>
                   <div className='info-layer'>
-                    <CardText className='text'>Event description: {item.desc}</CardText>
+                    <CardText style={{display:'flex',justifyContent:'center',color: 'aquamarine'}}>{item.desc}</CardText>
                     <CardText className='text'>Scheduled on: {item.date}</CardText>
                     <CardText className='text'>Main Agenda: {item.purpose}</CardText>
                     <CardText className='text'>Reporting time: {item.timing}</CardText>

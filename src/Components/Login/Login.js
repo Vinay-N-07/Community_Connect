@@ -8,15 +8,16 @@ const Auth = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [username, setUsername] = useState('');
-    const [error, setError] = useState('');
-    const [apiResponse, setApiResponse] = useState('');
-    const [authMode, setAuthMode] = useState('login');
+    const [age, setAge] = useState('');  // Added age state
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [type, setType] = useState([]);
-    const [interest, setInterest] = useState('');
+    const [interest, setInterest] = useState([]);
     const [adminEmail, setAdemail] = useState('');
     const [adminPass, setAdpass] = useState('');
+    const [error, setError] = useState('');
+    const [apiResponse, setApiResponse] = useState('');
+    const [authMode, setAuthMode] = useState('login');
     const navigate = useNavigate();
 
     const collname = 'UserData';
@@ -54,7 +55,7 @@ const Auth = () => {
             setError('');
             const selectedTypes = interest.join(',');
             const selectedRole = type.join('');
-            fetch(`http://localhost:5000/addUser/${username}/${password}/${email}/${address}/${phone}/${selectedRole}/${selectedTypes}`)
+            fetch(`http://localhost:5000/addUser/${username}/${password}/${email}/${address}/${phone}/${selectedRole}/${selectedTypes}/${age}`)
                 .then(response => response.json())
                 .then(data => {
                     setApiResponse(data);
@@ -76,15 +77,14 @@ const Auth = () => {
     const handleCheckboxChange = (e) => {
         const { value, checked } = e.target;
         if (checked) {
-            setInterest(prevType => [...prevType, value]);
+            setInterest(prevInterest => [...prevInterest, value]);
         } else {
-            setInterest(prevType => prevType.filter(t => t !== value));
+            setInterest(prevInterest => prevInterest.filter(i => i !== value));
         }
     };
 
     const handleVolunteerCheck = (e) => {
         const { value } = e.target;
-
         setType([value]);
     };
 
@@ -177,6 +177,15 @@ const Auth = () => {
                                 type="text"
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Age:</label>
+                            <input
+                                type="number"
+                                value={age}
+                                onChange={(e) => setAge(e.target.value)}
                                 required
                             />
                         </div>

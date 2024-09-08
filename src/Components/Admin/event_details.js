@@ -71,13 +71,15 @@ const EventDetails = () => {
     return (
         <Container className="event-details-container">
             {loading ? (
-                <div style={{ display:'flex', justifyContent:'centre', marginTop: '20%' }}>
+                <div style={{ display: 'flex', justifyContent: 'centre', marginTop: '20%' }}>
                     <img src={loadingGif} alt="Loading..." />
                 </div>
             ) : error ? (
                 <p>Error fetching data: {error.message}</p>
             ) : data.length === 0 ? (
-                <p>No event data available.</p>
+                <div>
+                    <div >No event data available.</div>
+                </div>
             ) : (
                 data.map((event, index) => {
                     const eventName = Object.keys(event)[0];
@@ -120,7 +122,7 @@ const EventDetails = () => {
                                     </CardBody>
                                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                                         <button color="primary" className='excel_download' onClick={() => downloadExcel(eventName)}>
-                                            Download Details
+                                            Download {eventName} event details
                                         </button>
                                     </div>
                                 </Card>

@@ -23,13 +23,15 @@ const ApprovalList = () => {
     }, []);
 
     const handleApprove = async (name, event) => {
-        fetch(`http://localhost:5000/approval/${name}/${event}`)
-            .then(response => response.json())
-            .then(data => {
-                setResult(data);
-                console.log(data);
-            });
-    }
+        try {
+            const response = await fetch(`http://localhost:5000/approval/${name}/${event}`);
+            const data = await response.json();
+            setResult(data);
+            console.log(data);
+        } catch (error) {
+            console.error("Error approving the request:", error);
+        }
+    };
 
     return (
         <div>
@@ -37,15 +39,22 @@ const ApprovalList = () => {
                 <div style={{ textAlign: 'center', marginTop: '20%' }}>
                     <img src={loadingGif} alt="Loading..." />
                 </div>
+            ) : data.length === 0 ? (
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}>
+                    No Approval Requests.
+                </div>
             ) : (
                 <div className="main">
                     {data.map((item, index) => (
                         <Card key={index} className='layer1'>
                             <CardBody>
-                                <CardTitle className="main-text">Name of volunteer : {item.name}</CardTitle>
+                                <CardTitle className="main-text">Name of volunteer: {item.name}</CardTitle>
                                 <CardTitle className="main-text">Event name: {item.eve_name}</CardTitle>
                                 <CardTitle className="main-text">Scheduled date: {item.date}</CardTitle>
-                                <CardText className="main-text"> Status : {item.status}</CardText>
+                                <CardText className="main-text">Status: {item.status}</CardText>
                                 <div className='layout'>
                                     {item.status === 'Pending Approval' && (
                                         <Button className='bt' onClick={() => handleApprove(item.name, item.eve_name)}>
@@ -58,7 +67,7 @@ const ApprovalList = () => {
                     ))}
                 </div>
             )}
-            <div className='approval'>{result.length === 1 && <span>{result[0].message}</span>}</div>
+            <div className='approval'>{result && <span>{result.message}</span>}</div>
         </div>
     );
 };

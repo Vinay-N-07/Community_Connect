@@ -11,23 +11,35 @@ const LoadAndExecuteScript = () => {
     const [showAddevent, setShowAddevent] = useState(false);
     const [showApproval, setShowApproval] = useState(false);
     const [showFileUpload, setShowFileUpload] = useState(false);
-    const [showEventDetails, setShowEventDetails] = useState(false); // State for EventDetails
+    const [showEventDetails, setShowEventDetails] = useState(false);
     const navigate = useNavigate();
 
     const handleClickForAddevent = () => {
         setShowAddevent(prev => !prev);
+        setShowApproval(false);
+        setShowFileUpload(false);
+        setShowEventDetails(false);
     };
 
     const handleClickForApproval = () => {
         setShowApproval(prev => !prev);
+        setShowAddevent(false);
+        setShowFileUpload(false);
+        setShowEventDetails(false);
     };
 
     const handleClickForFileUpload = () => {
         setShowFileUpload(prev => !prev);
+        setShowAddevent(false);
+        setShowApproval(false);
+        setShowEventDetails(false);
     };
 
     const handleClickForEventDetails = () => {
         setShowEventDetails(prev => !prev);
+        setShowAddevent(false);
+        setShowApproval(false);
+        setShowFileUpload(false);
     };
 
     const logout = () => {
@@ -58,40 +70,40 @@ const LoadAndExecuteScript = () => {
                     <button onClick={logout} className='btn logout-btn'>Logout</button>
                 </div>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center', margin: '30px', fontSize: 'x-large', textAlign: 'center', background: '#97e4e4',fontFamily: 'fangsong',borderRadius: '20px'}}>The administrator possesses the authority to create and manage events, review and approve participation requests from volunteers, upload recent event photos to the Community Compass gallery, and access detailed information about each event, with the option to download the details in an Excel file.</div>
-
-            <div style={{ display: 'contents' }}>
-            <div className='handle-button'>
+            <div className="admin-info-box">
+                <p><strong>Administrator</strong> possesses the authority to:</p>
+                <ul>
+                    <li>Create and manage events</li>
+                    <li>Review and approve participation requests from volunteers</li>
+                    <li>Upload recent event photos to the <em>Community Compass</em> gallery</li>
+                    <li>Access detailed information about each event, with the option to download the details in an Excel file</li>
+                </ul>
+            </div>
+            
+            {/* Button group in a single row */}
+            <div className="button-row">
                 <button onClick={handleClickForAddevent} className='btn'>
                     {showAddevent ? 'Hide Event Management' : 'Event Management'}
                 </button>
-            </div>
-            {showAddevent && <Addevent />}
-
-            <div className='handle-button'>
                 <button onClick={handleClickForApproval} className='btn'>
                     {showApproval ? 'Hide Approval Requests' : 'Approval Requests'}
                 </button>
-            </div>
-            {showApproval && <ApprovalList />}
-
-            <div className='handle-button'>
                 <button onClick={handleClickForFileUpload} className='btn'>
                     {showFileUpload ? 'Hide File Upload' : 'File Upload'}
                 </button>
-            </div>
-            {showFileUpload && <FileUpload />}
-
-            <div className='handle-button'>
                 <button onClick={handleClickForEventDetails} className='btn'>
                     {showEventDetails ? 'Hide Event Details' : 'Event Details'}
                 </button>
             </div>
-            <div>
+
+            {/* Content shown below the buttons */}
+            <div className="content-display">
+                {showAddevent && <Addevent />}
+                {showApproval && <ApprovalList />}
+                {showFileUpload && <FileUpload />}
                 {showEventDetails && <EventDetails />}
             </div>
         </div>
-        </div >
     );
 };
 

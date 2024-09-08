@@ -33,7 +33,7 @@
 
 .body {
 
-    background-image: url(upcoming.jpg);
+    background-image: url(upcoming1.jpg);
     background-size: 80rem 28rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -64,6 +64,8 @@
 }
 
 .info-layer {
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
 
 }

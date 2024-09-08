@@ -29,12 +29,13 @@ function MyComponent() {
                 if (profileData) {
                     setProfile({
                         'My Info': {
-                            'username': profileData.username,
-                            'email': profileData.email,
-                            'address': profileData.address,
-                            'phone': profileData.phone,
-                            'volunteer_type': profileData.volunteer_type,
-                            'area_of_interest': profileData.area_of_interest
+                            'Volunteer name': profileData.username,
+                            'Volunteer email': profileData.email,
+                            'Age': profileData.age,
+                            'Address': profileData.address,
+                            'Phone': profileData.phone,
+                            'Volunteer type': profileData.volunteer_type,
+                            'My Interests': profileData.area_of_interest
                         }
                     });
                 }
@@ -88,7 +89,7 @@ function MyComponent() {
             <div className="profile-main">Volunteer's profile</div>
             {isFetchingData ? (
                 <div className='loading-container'>
-                    <img src={loadingGif} alt="Loading..." className='loading-gif' />
+                    <img src={loadingGif} alt="Loading..." />
                 </div>
             ) : (
                 <>

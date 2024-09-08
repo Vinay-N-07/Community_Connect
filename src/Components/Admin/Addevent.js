@@ -65,36 +65,6 @@ const Addevent = () => {
                         <input
                             type="radio"
                             name="purpose"
-                            value="Meeting"
-                            checked={purpose === 'Meeting'}
-                            onChange={(e) => setPurpose(e.target.value)}
-                        />
-                        Meeting
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            name="purpose"
-                            value="Workshop"
-                            checked={purpose === 'Workshop'}
-                            onChange={(e) => setPurpose(e.target.value)}
-                        />
-                        Workshop
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            name="purpose"
-                            value="Conference"
-                            checked={purpose === 'Conference'}
-                            onChange={(e) => setPurpose(e.target.value)}
-                        />
-                        Conference
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            name="purpose"
                             value="Plantation"
                             checked={purpose === 'Plantation'}
                             onChange={(e) => setPurpose(e.target.value)}

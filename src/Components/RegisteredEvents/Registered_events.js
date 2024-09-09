@@ -10,7 +10,6 @@ const RegisteredEvent = () => {
     const [registeredevents, setRegisteredevents] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // Function to fetch data
     const fetchRegisteredEvents = async () => {
         setLoading(true);
         try {
@@ -24,12 +23,10 @@ const RegisteredEvent = () => {
         }
     };
 
-    // Initial data fetch
     useEffect(() => {
         fetchRegisteredEvents();
     }, [user.username]);
 
-    // Refresh function
     const handleRefresh = () => {
         fetchRegisteredEvents();
     };

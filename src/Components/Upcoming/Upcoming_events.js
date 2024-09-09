@@ -17,7 +17,7 @@ const Upcoming = () => {
   const [selectedPurposes, setSelectedPurposes] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [termsAccepted, setTermsAccepted] = useState(false); // Track Terms acceptance
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const purposesString = user.area_of_interest;
   const purposes = purposesString.split(',').map(purpose => purpose.trim());

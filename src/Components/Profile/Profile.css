@@ -30,12 +30,12 @@
 .red{
     display: flex;
     justify-content: center;
-    color: red;
+    color: rgb(196, 48, 48);
 }
 .success{
     display: flex;
     justify-content: center;
-    color: green;
+    color: rgb(182, 249, 182);
 }
 .btt{
     border-color: aqua;
@@ -47,11 +47,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height */
+    height: 100vh; 
 }
 
 .load-gif{
-    width: 100px; /* Adjust size as needed */
-    height: 100px; /* Adjust size as needed */
+    width: 100px; 
+    height: 100px; 
 }
 

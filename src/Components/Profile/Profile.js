@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { JsonToTable } from 'react-json-to-table';
 import './Profile.css';
-import loadingGif from './loading.gif'; // Make sure the path to your loading GIF is correct
+import loadingGif from './loading.gif'; 
 
 function MyComponent() {
     const [info, setInfo] = useState([]);
@@ -16,7 +16,7 @@ function MyComponent() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [profile, setProfile] = useState({});
-    const [isFetchingData, setIsFetchingData] = useState(true); // Add state for fetching data
+    const [isFetchingData, setIsFetchingData] = useState(true); 
 
     const collname = 'UserData';
 
@@ -39,12 +39,12 @@ function MyComponent() {
                         }
                     });
                 }
-                setIsFetchingData(false); // Set fetching data to false after data is fetched
+                setIsFetchingData(false);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
                 setError('Failed to fetch user data');
-                setIsFetchingData(false); // Set fetching data to false in case of error
+                setIsFetchingData(false); 
             });
     }, [user.username]);
 

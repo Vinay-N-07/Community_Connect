@@ -46,9 +46,10 @@
 .title {
     display: flex;
     justify-content: center;
+    gap: 20px;
     font-weight: lighter;
     font-size: xx-large;
-    color: #4f3b3b;
+    color: black;
 }
 
 .text {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
+import { Card, CardBody, CardTitle, CardText, Button } from 'reactstrap';
 import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,21 +17,50 @@ const Upcoming = () => {
   const [selectedPurposes, setSelectedPurposes] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [termsAccepted, setTermsAccepted] = useState(false); // Track Terms acceptance
 
-  const purposesString = user.area_of_interest; // Replace this with your actual variable
-  const purposes = purposesString.split(',').map(purpose => purpose.trim()); // Split string into array
+  const purposesString = user.area_of_interest;
+  const purposes = purposesString.split(',').map(purpose => purpose.trim());
+
+
+  const fetchEvents = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`http://localhost:5000/getUsers/${collname}`);
+      const data = await response.json();
+      setGetdata(data);
+    } catch (error) {
+      console.error("Error fetching events:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   useEffect(() => {
-    fetch(`http://localhost:5000/getUsers/${collname}`)
-      .then(response => response.json())
-      .then(data => {
-        setGetdata(data);
-        setLoading(false); // Set loading to false after data is fetched
-        console.log(data);
-      });
+    fetchEvents();
   }, []);
 
+
+  const handleRefresh = () => {
+    fetchEvents();
+  };
+
   const handleRegister = async (name, event_name, venue, date, time, purpose, desc) => {
+    if (!termsAccepted) {
+      toast.error("You must accept the terms and conditions to register.", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored"
+      });
+      return;
+    }
+
     const response = await fetch(`http://localhost:5000/to_register/${name}/${event_name}/${venue}/${date}/${time}/${purpose}/${desc}`);
     const data = await response.json();
     setResult(data);
@@ -81,6 +110,10 @@ const Upcoming = () => {
     setSelectAll(!selectAll);
   };
 
+  const handleTermsChange = (event) => {
+    setTermsAccepted(event.target.checked);
+  };
+
   return (
     <div>
       <ToastContainer />
@@ -88,7 +121,6 @@ const Upcoming = () => {
         Register now for our upcoming events of community crusaders.
       </div>
 
-      {/* Select All Checkbox */}
       <div className='second-header'>List the event based on your interest.</div>
       <div className='grid-view'>
         <div className='checkbox-group'>
@@ -102,7 +134,6 @@ const Upcoming = () => {
           </div>
         </div>
 
-        {/* Render checkboxes for each purpose */}
         {purposes.map((purpose) => (
           <div key={purpose} className='checkbox-item'>
             <input
@@ -110,16 +141,20 @@ const Upcoming = () => {
               value={purpose}
               onChange={handleCheckboxChange}
               checked={selectedPurposes.includes(purpose)}
-              disabled={selectAll} // Disable individual checkboxes if "Select All" is checked
+              disabled={selectAll}
             />
             <label>{purpose}</label>
           </div>
         ))}
       </div>
 
+      <button onClick={handleRefresh} style={{ background: '#f3f3df', marginBottom: '20px', marginLeft: '20px' }}>
+        Refresh
+      </button>
+
       {loading ? (
         <div className='loading-container'>
-          <img src={loadingGif} alt="Loading..."/>
+          <img src={loadingGif} alt="Loading..." />
         </div>
       ) : (
         getdata
@@ -128,18 +163,30 @@ const Upcoming = () => {
             <Card key={index} className='main' onClick={() => handleCardClick(index)}>
               <CardBody className='body'>
                 <div>
-                  <CardTitle className='title'>Event name: {item.name}</CardTitle>
+                  <CardTitle className='title'>
+                    Event name: <div style={{ color: 'coral' }}>{item.name}</div>
+                  </CardTitle>
+                  <CardText style={{ display: 'flex', justifyContent: 'center', color: '#10100f' }}>{item.desc}</CardText>
                   <div className='info-layer'>
-                    <CardText style={{display:'flex',justifyContent:'center',color: 'aquamarine'}}>{item.desc}</CardText>
                     <CardText className='text'>Scheduled on: {item.date}</CardText>
                     <CardText className='text'>Main Agenda: {item.purpose}</CardText>
                     <CardText className='text'>Reporting time: {item.timing}</CardText>
                     <CardText className='text'>Event venue: {item.venue}</CardText>
-                    <CardText className='text'>Maximum volunteers can participate : {item.max_strength}</CardText>
-                    <CardText className='text'>Volunteers registered : {item.volunteer_registered}</CardText>
+                    <CardText className='text'>Maximum volunteers can participate: {item.max_strength}</CardText>
+                    <CardText className='text'>Volunteers registered: {item.volunteer_registered}</CardText>
                   </div>
                   <div className='bt-align'>
-                    <button onClick={() => handleRegister(user.username, item.name, item.venue, item.date, item.timing, item.purpose, item.desc)}>
+                    <input
+                      type="checkbox"
+                      id="terms"
+                      onChange={handleTermsChange}
+                    />
+                    <label htmlFor="terms" style={{ color: '#00e3ff', fontSize: 'inherit' }}> I agree to the Terms and Conditions</label>
+                    <br />
+                    <button style={{ margin: '5px' }}
+                      onClick={() => handleRegister(user.username, item.name, item.venue, item.date, item.timing, item.purpose, item.desc)}
+                      disabled={!termsAccepted}
+                    >
                       Register Now
                     </button>
                   </div>

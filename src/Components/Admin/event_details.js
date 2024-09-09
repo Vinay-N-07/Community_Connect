@@ -87,7 +87,7 @@ const EventDetails = () => {
 
                     return (
                         <Row key={index} className="mb-4">
-                            <Col style={{ background: '#8ca3eb', borderRadius: '10px', width: '30rem', cursor: 'pointer', margin: '20px' }}>
+                            <Col style={{background:'#c0dabd',borderRadius: '10px', width: '30rem', cursor: 'pointer', margin: '20px' }}>
                                 <Card className="event-card">
                                     <CardBody>
                                         <Row className="align-items-center">

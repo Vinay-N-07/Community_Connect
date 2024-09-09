@@ -3,7 +3,7 @@ import { toJpeg } from 'html-to-image';
 import download from 'downloadjs';
 import { useLocation } from 'react-router-dom';
 import logo from './logo.jpg';
-import loadingGif from './loading.gif'; // Add your loading GIF file in the same directory
+import loadingGif from './loading.gif';
 import './Invitation.css';
 
 const Invitation = () => {
@@ -13,15 +13,26 @@ const Invitation = () => {
     const [loading, setLoading] = useState(true);
     const invitationRef = useRef();
 
+    const fetchInvitations = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`http://localhost:5000/download_invitation/${user.username}`);
+            const data = await response.json();
+            setInvited(data);
+        } catch (error) {
+            console.error("Error fetching invitations:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        fetch(`http://localhost:5000/download_invitation/${user.username}`)
-            .then(response => response.json())
-            .then(data => {
-                setInvited(data);
-                setLoading(false);  // Set loading to false after data is fetched
-                console.log(data);
-            });
+        fetchInvitations();
     }, [user.username]);
+
+    const handleRefresh = () => {
+        fetchInvitations();
+    };
 
     const handleDownload = () => {
         if (invitationRef.current === null) {
@@ -45,11 +56,14 @@ const Invitation = () => {
                 justifyContent: 'center',
                 fontSize: 'larger',
                 background: 'rgba(0, 0, 0, 0.5)',
-                color: 'antiquewhite',
+                color: 'whitesmoke',
                 fontWeight: '200'
             }}>
                 Kindly download the invitations for the events you have registered for.
             </div>
+            <button  onClick={handleRefresh} style={{background:'#f3f3df', marginBottom: '20px', marginLeft: '20px' }}>
+                Refresh
+            </button>
             {loading ? (
                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10rem' }}>
                     <img src={loadingGif} alt="Loading..." />
@@ -61,7 +75,7 @@ const Invitation = () => {
                     marginTop: '10rem',
                     fontSize: 'xx-large',
                     fontFamily: 'fantasy',
-                    color: 'currentColor'
+                    color: 'aliceblue'
                 }}>
                     You don't have approved registered events.
                 </div>

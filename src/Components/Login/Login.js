@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; // Import CSS for styling
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './Login.css'; 
+import { Alert } from 'reactstrap';
 
 const Auth = () => {
     const [users, setUsers] = useState([]);
@@ -8,7 +11,7 @@ const Auth = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [username, setUsername] = useState('');
-    const [age, setAge] = useState('');  // Added age state
+    const [age, setAge] = useState('');
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [type, setType] = useState([]);
@@ -23,7 +26,6 @@ const Auth = () => {
     const collname = 'UserData';
 
     useEffect(() => {
-        // Fetch the list of users from the API
         fetch(`http://localhost:5000/getUsers/${collname}`)
             .then(response => response.json())
             .then(data => {
@@ -35,14 +37,13 @@ const Auth = () => {
     const handleLogin = (e) => {
         e.preventDefault();
         const user = users.find(user => user.email === email && user.password === password);
-
+    
         if (user) {
-            // Successful login
-            alert(`Welcome ${user.username}!, Authentication is successful, Click OK to continue`);
+            Alert(`Welcome ${user.username}! Authentication is successful, Click OK to continue`);
             const userdata = { user };
             navigate('/home', { state: userdata });
         } else {
-            // Failed login
+            toast.error('Invalid email or password');
             setError('Invalid email or password');
         }
     };
@@ -66,7 +67,7 @@ const Auth = () => {
 
     const handleAdminLogin = (e) => {
         e.preventDefault();
-        if (adminEmail === 'admin@mail.com' && adminPass === 'password') {
+        if (adminEmail === 'admin@communitycompass.com' && adminPass === 'password') {
             setError('');
             navigate('/Admin');
         } else {
@@ -101,6 +102,7 @@ const Auth = () => {
                     <option value="signup">Create an Account</option>
                     <option value="admin">Admin Login</option>
                 </select>
+                <ToastContainer position="top-right" autoClose={5000}/>
                 {authMode === 'login' && (
                     <form onSubmit={handleLogin}>
                         <div className="form-group">

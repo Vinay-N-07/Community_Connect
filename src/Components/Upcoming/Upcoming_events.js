@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Upcoming_events.css';
 import loadingGif from './loading.gif';
+import { Get_data, To_register } from '../API';
 
 const Upcoming = () => {
   const { state } = useLocation();
@@ -26,7 +27,7 @@ const Upcoming = () => {
   const fetchEvents = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:5000/getUsers/${collname}`);
+      const response = await fetch(`${Get_data}/${collname}`);
       const data = await response.json();
       setGetdata(data);
     } catch (error) {
@@ -61,7 +62,7 @@ const Upcoming = () => {
       return;
     }
 
-    const response = await fetch(`http://localhost:5000/to_register/${name}/${event_name}/${venue}/${date}/${time}/${purpose}/${desc}`);
+    const response = await fetch(`${To_register}/${name}/${event_name}/${venue}/${date}/${time}/${purpose}/${desc}`);
     const data = await response.json();
     setResult(data);
     console.log(data);

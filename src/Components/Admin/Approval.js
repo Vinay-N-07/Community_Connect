@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardTitle, CardText, Button } from 'reactstrap';
+import { Approval, Get_data } from '../API';
 import './Approval.css';
 import loadingGif from './loading.gif';
 
@@ -13,7 +14,7 @@ const ApprovalList = () => {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5000/getUsers/${collname}`);
+            const response = await fetch(`${Get_data}/${collname}`);
             const data = await response.json();
             setData(data);
             setFilteredData(data.filter(item => item.status === 'Pending Approval'));
@@ -34,7 +35,7 @@ const ApprovalList = () => {
 
     const handleApprove = async (name, event) => {
         try {
-            const response = await fetch(`http://localhost:5000/approval/${name}/${event}`);
+            const response = await fetch(`${Approval}/${name}/${event}`);
             const data = await response.json();
 
             setResult(`Request for ${name} regarding ${event} has been approved.`);

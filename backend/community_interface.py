@@ -5,6 +5,7 @@ from pymongo import MongoClient
 from flask_cors import CORS
 import cryptography
 import gridfs
+# 50.16.96.91
 
 
 app = Flask(__name__)
@@ -56,7 +57,7 @@ def add_user(username=None, password=None, mail=None, address=None, phone=None, 
         'phone': phone,
         'volunteer_type': user_type,
         'area_of_interest': area_of_interest,
-        'age': age  # Add age here
+        'age': age
     }
 
     result = db_conn('UserData').insert_one(user)

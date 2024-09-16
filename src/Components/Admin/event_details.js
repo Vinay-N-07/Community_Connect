@@ -4,6 +4,7 @@ import { utils, write } from 'xlsx';
 import { saveAs } from 'file-saver';
 import './EventDetails.css';
 import loadingGif from './loading.gif';
+import { Event_details } from '../API';
 
 const EventDetails = () => {
     const [data, setData] = useState([]);
@@ -12,7 +13,7 @@ const EventDetails = () => {
     const [expandedParticipant, setExpandedParticipant] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:5000/eventdetails')  // Replace with your actual API endpoint
+        fetch(Event_details)  // Replace with your actual API endpoint
             .then(response => response.json())
             .then(data => {
                 setData(data);

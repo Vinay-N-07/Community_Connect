@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { JsonToTable } from 'react-json-to-table';
 import './Profile.css';
 import loadingGif from './loading.gif'; 
+import { Get_data, Update } from '../API';
 
 function MyComponent() {
     const [info, setInfo] = useState([]);
@@ -21,7 +22,7 @@ function MyComponent() {
     const collname = 'UserData';
 
     useEffect(() => {
-        fetch(`http://localhost:5000/getUsers/${collname}`)
+        fetch(`${Get_data}/${collname}`)
             .then(response => response.json())
             .then(data => {
                 setInfo(data);
@@ -29,13 +30,13 @@ function MyComponent() {
                 if (profileData) {
                     setProfile({
                         'My Info': {
-                            'Volunteer name': profileData.username,
-                            'Volunteer email': profileData.email,
-                            'Age': profileData.age,
-                            'Address': profileData.address,
-                            'Phone': profileData.phone,
-                            'Volunteer type': profileData.volunteer_type,
-                            'My Interests': profileData.area_of_interest
+                            'username': profileData.username,
+                            'email': profileData.email,
+                            'age': profileData.age,
+                            'address': profileData.address,
+                            'phone': profileData.phone,
+                            'volunteer_type': profileData.volunteer_type,
+                            'area_of_interest': profileData.area_of_interest
                         }
                     });
                 }
@@ -51,7 +52,7 @@ function MyComponent() {
     const updateProfile = async (key, input) => {
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5000/update_user_data/${user.username}/${key}/${input}`);
+            const response = await fetch(`${Update}/${user.username}/${key}/${input}`);
             const data = await response.json();
             setRes(data);
             setProfile(prevProfile => ({

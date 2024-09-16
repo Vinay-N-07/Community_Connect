@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Images } from '../API';
 import './photos.css';
 
 const ImageGallery = () => {
@@ -7,7 +8,7 @@ const ImageGallery = () => {
 
   const fetchImages = async () => {
     try {
-      const response = await fetch('http://localhost:5000/images');
+      const response = await fetch(Images);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

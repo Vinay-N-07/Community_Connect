@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Login.css'; 
 import { Alert } from 'reactstrap';
+import { Add_user, Get_data } from '../API';
 
 const Auth = () => {
     const [users, setUsers] = useState([]);
@@ -26,7 +27,7 @@ const Auth = () => {
     const collname = 'UserData';
 
     useEffect(() => {
-        fetch(`http://localhost:5000/getUsers/${collname}`)
+        fetch(`${Get_data}/${collname}`)
             .then(response => response.json())
             .then(data => {
                 setUsers(data);
@@ -56,7 +57,7 @@ const Auth = () => {
             setError('');
             const selectedTypes = interest.join(',');
             const selectedRole = type.join('');
-            fetch(`http://localhost:5000/addUser/${username}/${password}/${email}/${address}/${phone}/${selectedRole}/${selectedTypes}/${age}`)
+            fetch(`${Add_user}/${username}/${password}/${email}/${address}/${phone}/${selectedRole}/${selectedTypes}/${age}`)
                 .then(response => response.json())
                 .then(data => {
                     setApiResponse(data);
@@ -100,7 +101,7 @@ const Auth = () => {
                 <select onChange={(e) => setAuthMode(e.target.value)} className="auth-dropdown">
                     <option value="login">Volunteer Login</option>
                     <option value="signup">Create an Account</option>
-                    <option value="admin">Admin Login</option>
+                    <option value="admin">Administrator Login</option>
                 </select>
                 <ToastContainer position="top-right" autoClose={5000}/>
                 {authMode === 'login' && (

@@ -3,6 +3,7 @@ import { Card, CardBody, CardTitle, CardText, Button } from 'reactstrap';
 import { useLocation } from 'react-router-dom';
 import './Registered_event.css';
 import loadingGif from './loading.gif';
+import { Registered_event } from '../API';
 
 const RegisteredEvent = () => {
     const { state } = useLocation();
@@ -13,7 +14,7 @@ const RegisteredEvent = () => {
     const fetchRegisteredEvents = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5000/RegisteredEvents/${user.username}`);
+            const response = await fetch(`${Registered_event}/${user.username}`);
             const data = await response.json();
             setRegisteredevents(data);
         } catch (error) {

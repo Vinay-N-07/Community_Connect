@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import logo from './logo.jpg';
 import loadingGif from './loading.gif';
 import './Invitation.css';
+import { Downlad_invite } from '../API';
 
 const Invitation = () => {
     const { state } = useLocation();
@@ -16,7 +17,7 @@ const Invitation = () => {
     const fetchInvitations = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5000/download_invitation/${user.username}`);
+            const response = await fetch(`${Downlad_invite}/${user.username}`);
             const data = await response.json();
             setInvited(data);
         } catch (error) {

@@ -83,16 +83,16 @@ const LoadAndExecuteScript = () => {
             {/* Button group in a single row */}
             <div className="button-row">
                 <button onClick={handleClickForAddevent} className='btn'>
-                    {showAddevent ? 'Hide Event Management' : 'Event Management'}
+                    {showAddevent ? 'Hide Event Management' : 'Event creation'}
                 </button>
                 <button onClick={handleClickForApproval} className='btn'>
-                    {showApproval ? 'Hide Approval Requests' : 'Approval Requests'}
+                    {showApproval ? 'Hide Approval Requests' : 'Event approval requests'}
                 </button>
                 <button onClick={handleClickForFileUpload} className='btn'>
-                    {showFileUpload ? 'Hide File Upload' : 'File Upload'}
+                    {showFileUpload ? 'Hide File Upload' : 'Gallery management'}
                 </button>
                 <button onClick={handleClickForEventDetails} className='btn'>
-                    {showEventDetails ? 'Hide Event Details' : 'Event Details'}
+                    {showEventDetails ? 'Hide Event Details' : 'Event details'}
                 </button>
             </div>
 

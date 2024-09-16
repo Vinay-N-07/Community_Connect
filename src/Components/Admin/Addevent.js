@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Add_event } from '../API';
 import './Addevent.css';
 
 const Addevent = () => {
@@ -14,7 +15,7 @@ const Addevent = () => {
     const handleAddEvent = (e) => {
         e.preventDefault();
         // Replace with your API endpoint
-        fetch(`http://localhost:5000/add_event/${eventname}/${venue}/${date}/${time}/${purpose}/${strength}/${desc}`)
+        fetch(`${Add_event}/${eventname}/${venue}/${date}/${time}/${purpose}/${strength}/${desc}`)
             .then(response => response.json())
             .then(data => {
                 setApiResponse(data);

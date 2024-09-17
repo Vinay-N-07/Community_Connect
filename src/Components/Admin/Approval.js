@@ -6,7 +6,7 @@ import loadingGif from './loading.gif';
 
 const ApprovalList = () => {
     const [data, setData] = useState([]);
-    const [filteredData, setFilteredData] = useState([]);
+    const [filteredData, setFilteredData] = useState([]); // You can remove filteredData if you don't need it
     const [result, setResult] = useState('');
     const [loading, setLoading] = useState(true);
     const collname = 'RegistedEvent';
@@ -16,8 +16,8 @@ const ApprovalList = () => {
         try {
             const response = await fetch(`${Get_data}/${collname}`);
             const data = await response.json();
-            setData(data);
-            setFilteredData(data.filter(item => item.status === 'Pending Approval'));
+            setData(data);  // Set all data without filtering
+            setFilteredData(data);  // If you want to still use filteredData, just assign data to it
         } catch (error) {
             console.error("Error fetching data:", error);
         } finally {
@@ -58,7 +58,7 @@ const ApprovalList = () => {
                 <div style={{ textAlign: 'center', marginTop: '20%' }}>
                     <img src={loadingGif} alt="Loading..." />
                 </div>
-            ) : filteredData.length === 0 ? (
+            ) : data.length === 0 ? ( // Use `data` here instead of `filteredData`
                 <div style={{
                     display: 'flex',
                     justifyContent: 'center',
@@ -67,13 +67,13 @@ const ApprovalList = () => {
                 </div>
             ) : (
                 <div className="main">
-                    {filteredData.map((item, index) => (
+                    {data.map((item, index) => (  // Use `data` to display all items
                         <Card key={index} className='layer1'>
                             <CardBody>
                                 <CardTitle className="main-text">Name of volunteer:  <div style={{ color: 'green', fontWeight: 600 }}>{item.name}</div></CardTitle>
                                 <CardTitle className="main-text">Requested event: <div style={{ color: 'green', fontWeight: 600 }}>{item.eve_name}</div></CardTitle>
                                 <CardTitle className="main-text">Scheduled date: <div style={{ color: 'green', fontWeight: 600 }}>{item.date}</div></CardTitle>
-                                <CardText className="main-text">Status: <div style={{ color: 'green', fontWeight: 600 }}>{item.status}</div></CardText>
+                                <CardText className="main-text">Status: <div style={{ color: item.status === 'Approved' ? 'blue' : 'green', fontWeight: 600 }}>{item.status}</div></CardText>
                                 <div className='layout'>
                                     {item.status === 'Pending Approval' && (
                                         <Button className='bt' onClick={() => handleApprove(item.name, item.eve_name)}>

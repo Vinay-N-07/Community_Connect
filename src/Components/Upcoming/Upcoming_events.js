@@ -5,6 +5,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Upcoming_events.css';
 import loadingGif from './loading.gif';
+import treeImage from './card_images/tree.jpg'; 
+import bloodDonationImage from './card_images/blood-donation.jpg';
+import orphanageImage from './card_images/orphanage.jpg'; 
+import elderlyCareImage from './card_images/elder.jpg';
+import animalRescueImage from './card_images/animal rescue.png'; 
 import { Get_data, To_register } from '../API';
 
 const Upcoming = () => {
@@ -23,7 +28,6 @@ const Upcoming = () => {
   const purposesString = user.area_of_interest;
   const purposes = purposesString.split(',').map(purpose => purpose.trim());
 
-
   const fetchEvents = async () => {
     setLoading(true);
     try {
@@ -37,11 +41,9 @@ const Upcoming = () => {
     }
   };
 
-
   useEffect(() => {
     fetchEvents();
   }, []);
-
 
   const handleRefresh = () => {
     fetchEvents();
@@ -115,6 +117,23 @@ const Upcoming = () => {
     setTermsAccepted(event.target.checked);
   };
 
+  const getImageForPurpose = (purpose) => {
+    switch (purpose.toLowerCase()) {
+      case 'plantation':
+        return treeImage;
+      case 'blood donation':
+        return bloodDonationImage;
+      case 'orphanage':
+        return orphanageImage;
+      case 'elderly care':
+        return elderlyCareImage;
+      case 'animal rescue':
+        return animalRescueImage;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div>
       <ToastContainer />
@@ -163,8 +182,8 @@ const Upcoming = () => {
           .map((item, index) => (
             <Card key={index} className='main' onClick={() => handleCardClick(index)}>
               <CardBody className='body'>
-                <div>
-                  <CardTitle className='title'>
+                <div style={{ position: 'relative' }}>
+                  <CardTitle className='my-title'>
                     Event name: <div style={{ color: 'coral' }}>{item.name}</div>
                   </CardTitle>
                   <CardText style={{ display: 'flex', justifyContent: 'center', color: '#10100f' }}>{item.desc}</CardText>
@@ -176,6 +195,23 @@ const Upcoming = () => {
                     <CardText className='text'>Maximum volunteers can participate: {item.max_strength}</CardText>
                     <CardText className='text'>Volunteers registered: {item.volunteer_registered}</CardText>
                   </div>
+
+                  {/* Show respective image for each purpose */}
+                  {getImageForPurpose(item.purpose) && (
+                    <img
+                      src={getImageForPurpose(item.purpose)}
+                      alt={item.purpose}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        right: 0,
+                        width: '50px',
+                        height: '50px',
+                        borderRadius: '20px'
+                      }}
+                    />
+                  )}
+
                   <div className='bt-align'>
                     <input
                       type="checkbox"

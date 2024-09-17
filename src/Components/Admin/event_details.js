@@ -13,7 +13,7 @@ const EventDetails = () => {
     const [expandedParticipant, setExpandedParticipant] = useState(null);
 
     useEffect(() => {
-        fetch(Event_details)  // Replace with your actual API endpoint
+        fetch(Event_details)  
             .then(response => response.json())
             .then(data => {
                 setData(data);

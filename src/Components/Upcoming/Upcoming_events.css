@@ -43,7 +43,7 @@
     width: 50rem;
 }
 
-.title {
+.my-title {
     display: flex;
     justify-content: center;
     gap: 20px;

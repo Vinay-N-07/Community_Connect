@@ -45,7 +45,7 @@ const RegisteredEvent = () => {
             }}>
                 Volunteers have the ability to view the events in which they are enrolled, along with their approval status.
             </div>
-            <button  onClick={handleRefresh} style={{background:'#f3f3df', marginBottom: '20px', marginLeft: '20px' }}>
+            <button onClick={handleRefresh} style={{ background: '#f3f3df', marginBottom: '20px', marginLeft: '20px' }}>
                 Refresh
             </button>
             {loading ? (
@@ -70,9 +70,7 @@ const RegisteredEvent = () => {
                             <div>
                                 <div>
                                     <div style={{ width: '3rem' }}></div>
-                                    <CardTitle className='title'>
-                                        Event name: <div style={{ color: '#c1b9eb' }}>{item.eve_name}</div>
-                                    </CardTitle>
+                                    <CardTitle style={{ color: '#c1b9eb', display: 'flex', justifyContent: 'center', fontWeight: 'lighter', fontSize: 'xx-large' }}>{item.eve_name}</CardTitle>
                                     <CardText className={item.status === 'Pending Approval' ? 'pending' : 'approved'}>
                                         {item.status === 'Pending Approval' ? item.status : 'Approved'}
                                     </CardText>
@@ -84,7 +82,7 @@ const RegisteredEvent = () => {
                                     <CardText className='text'>Event venue: {item.venue}</CardText>
                                     {item.status === 'Approved' && (
                                         <div className='redirect'>
-                                            Please download your invitation for {item.eve_name} at 'My Invitations'
+                                            Please download your invitation for the event<div style={{color:'white', marginLeft: '3px',marginRight: '3px'}}> {item.eve_name} </div>  at 'My Invitations'
                                         </div>
                                     )}
                                 </div>

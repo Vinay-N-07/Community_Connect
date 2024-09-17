@@ -10,7 +10,7 @@ function MyComponent() {
     const { state } = useLocation();
     const { user } = state;
     const [res, setRes] = useState('');
-    const [key, setKey] = useState('');
+    const [selectedField, setSelectedField] = useState(''); // Changed from key to selectedField
     const [input, setInput] = useState('');
     const [showEditForm, setShowEditForm] = useState(false);
     const [showEditButton, setShowEditButton] = useState(true);
@@ -32,11 +32,15 @@ function MyComponent() {
                         'My Info': {
                             'username': profileData.username,
                             'email': profileData.email,
+                            'date_of_birth':profileData.date_of_birth,
                             'age': profileData.age,
+                            'gender':profileData.gender,
                             'address': profileData.address,
                             'phone': profileData.phone,
                             'volunteer_type': profileData.volunteer_type,
                             'area_of_interest': profileData.area_of_interest
+                            
+                            
                         }
                     });
                 }
@@ -49,17 +53,17 @@ function MyComponent() {
             });
     }, [user.username]);
 
-    const updateProfile = async (key, input) => {
+    const updateProfile = async (selectedField, input) => {
         setLoading(true);
         try {
-            const response = await fetch(`${Update}/${user.username}/${key}/${input}`);
+            const response = await fetch(`${Update}/${user.username}/${selectedField}/${input}`);
             const data = await response.json();
             setRes(data);
             setProfile(prevProfile => ({
                 ...prevProfile,
                 'My Info': {
                     ...prevProfile['My Info'],
-                    [key]: input
+                    [selectedField]: input
                 }
             }));
         } catch (err) {
@@ -76,13 +80,13 @@ function MyComponent() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!key.trim() || !input.trim()) {
-            setError('Key and Input fields cannot be empty.');
+        if (!selectedField || !input.trim()) {
+            setError('Field and Input fields cannot be empty.');
             setTimeout(() => setError(''), 3000);
             return;
         }
         setShowEditForm(false);
-        updateProfile(key, input);
+        updateProfile(selectedField, input);
     };
 
     return (
@@ -106,18 +110,25 @@ function MyComponent() {
                         {showEditForm && (
                             <form onSubmit={handleSubmit}>
                                 <div>
-                                    <label htmlFor="key">Select the field:   </label>
-                                    <input
+                                    <label htmlFor="selectedField">Select the field: </label>
+                                    <select
                                         className='width'
-                                        id="key"
-                                        type="text"
-                                        value={key}
-                                        onChange={(e) => setKey(e.target.value)}
-                                        placeholder="Select the field you want to edit (ex: username)"
-                                    />
+                                        id="selectedField"
+                                        value={selectedField}
+                                        onChange={(e) => setSelectedField(e.target.value)}
+                                    >
+                                        <option value="">Select Field</option>
+                                        <option value="username">Username</option>
+                                        <option value="email">Email</option>
+                                        <option value="age">Age</option>
+                                        <option value="address">Address</option>
+                                        <option value="phone">Phone</option>
+                                        <option value="volunteer_type">Volunteer Type</option>
+                                        <option value="area_of_interest">Area of Interest</option>
+                                    </select>
                                 </div>
                                 <div>
-                                    <label htmlFor="input">Insert:   </label>
+                                    <label htmlFor="input">Insert: </label>
                                     <input
                                         className='width'
                                         id="input"

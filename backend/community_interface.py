@@ -43,8 +43,8 @@ def grant_approval(coll_name, name, event):
 @app.route('/', methods=['GET'])
 def home():
     return "<h1>Welcome to community connect API centre</h1>"
-@app.route('/addUser/<username>/<password>/<mail>/<address>/<phone>/<user_type>/<area_of_interest>/<age>', methods=['GET', 'POST'])
-def add_user(username=None, password=None, mail=None, address=None, phone=None, user_type=None, area_of_interest=None, age=None):
+@app.route('/addUser/<username>/<password>/<mail>/<address>/<phone>/<user_type>/<area_of_interest>/<age>/<dob>/<gender>', methods=['GET', 'POST'])
+def add_user(username=None, password=None, mail=None, address=None, phone=None, user_type=None, area_of_interest=None, age=None,dob=None, gender=None):
     if not username or not password:
         return jsonify({'error': 'Username and password are required'}), 400
 
@@ -56,7 +56,9 @@ def add_user(username=None, password=None, mail=None, address=None, phone=None, 
         'phone': phone,
         'volunteer_type': user_type,
         'area_of_interest': area_of_interest,
-        'age': age  # Add age here
+        'age': age,
+        'gender': gender,
+        'date_of_birth':dob
     }
 
     result = db_conn('UserData').insert_one(user)

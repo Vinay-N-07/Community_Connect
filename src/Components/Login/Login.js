@@ -21,6 +21,8 @@ const Auth = () => {
     const [adminPass, setAdpass] = useState('');
     const [error, setError] = useState('');
     const [apiResponse, setApiResponse] = useState('');
+    const [dob, setDob] = useState(''); // Date of birth field
+    const [gender, setGender] = useState(''); // Gender field
     const [authMode, setAuthMode] = useState('login');
     const navigate = useNavigate();
 
@@ -57,7 +59,7 @@ const Auth = () => {
             setError('');
             const selectedTypes = interest.join(',');
             const selectedRole = type.join('');
-            fetch(`${Add_user}/${username}/${password}/${email}/${address}/${phone}/${selectedRole}/${selectedTypes}/${age}`)
+            fetch(`${Add_user}/${username}/${password}/${email}/${address}/${phone}/${selectedRole}/${selectedTypes}/${age}/${dob}/${gender}`)
                 .then(response => response.json())
                 .then(data => {
                     setApiResponse(data);
@@ -191,6 +193,24 @@ const Auth = () => {
                                 onChange={(e) => setAge(e.target.value)}
                                 required
                             />
+                        </div>
+                        <div className="form-group">
+                            <label>Date of Birth:</label>
+                            <input
+                                type="date"
+                                value={dob}
+                                onChange={(e) => setDob(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Gender:</label>
+                            <select value={gender} onChange={(e) => setGender(e.target.value)} required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
                         </div>
                         <div className="form-group">
                             <label>Area of interest:</label>

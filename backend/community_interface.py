@@ -16,7 +16,7 @@ app.config['CORS_HEADERS'] = 'application/json'
 def db_conn(collection_name):
     uri = "mongodb+srv://Vinay_N:Vinay_1998@communityconnect.ntsofil.mongodb.net/"
     client = MongoClient(uri)
-    db = client["Community_Connect"]  # Replace with your database name
+    db = client["Community_Connect"]
     users_collection = db[collection_name]
     return users_collection
 
@@ -38,7 +38,6 @@ def grant_approval(coll_name, name, event):
     mycoll = db_conn(coll_name)
     mycoll.update_one({'name': name, 'eve_name': event}, {"$set": {'status': 'Approved'}})
 
-# def update_user_data(name, key, input):
     
 @app.route('/', methods=['GET'])
 def home():
@@ -137,10 +136,17 @@ def download_invitation(name):
 @app.route('/update_user_data/<name>/<key>/<input>', methods=['GET'])
 def update_user_data(name, key, input):
     user_data = getdata('UserData')
+    user_found = False 
     for x in user_data:
         if name == x['username']:
-            db_conn('UserData').update_one({'username':name}, {'$set': {key : input}})
-        return jsonify([{'message':'Changes are updated'}])
+            db_conn('UserData').update_one({'username': name}, {'$set': {key: input}})
+            user_found = True
+            break
+    if user_found:
+        return jsonify([{'message': 'Changes are updated'}])
+    else:
+        return jsonify([{'message': 'User not found'}]), 404
+
     
 def geteventmember():
     reg_data = getdata('RegistedEvent')
@@ -179,21 +185,16 @@ def upload_file():
 def get_images():
     images = []
     
-    # Retrieve all files stored in GridFS
     for grid_out in fs.find():
-        # Read binary data from GridFS
         file_data = grid_out.read()
         
-        # Convert binary image data to base64 string
         image_data = base64.b64encode(file_data).decode('utf-8')
         
-        # Append image details to list
         images.append({
             'name': grid_out.filename,
             'image': image_data
         })
 
-    # Send the images as a JSON response
     return jsonify(images), 200 
 @app.route('/eventdetails', methods=['GET'])
 def get_combined_event_user_details():

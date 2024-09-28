@@ -70,7 +70,7 @@ const Auth = () => {
 
     const handleAdminLogin = (e) => {
         e.preventDefault();
-        if (adminEmail === 'admin@communitycompass.com' && adminPass === 'password') {
+        if (adminEmail === 'admin@cc.com' && adminPass === 'pass') {
             setError('');
             navigate('/Admin');
         } else {
